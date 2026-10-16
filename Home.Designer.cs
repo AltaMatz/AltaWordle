@@ -857,9 +857,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(31, 31, 31);
             ClientSize = new Size(882, 853);
+            Controls.Add(homePanel);
             Controls.Add(titleAlternative);
             Controls.Add(matchPanel);
-            Controls.Add(homePanel);
             ForeColor = SystemColors.ActiveCaptionText;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
