@@ -9,15 +9,18 @@ namespace AltaWordle
         private WordManager wordManager = new WordManager();
         private string language = "Italiano (IT)";
 
-        public Home() {
+        public Home()
+        {
             InitializeComponent();
             settingsButton.BringToFront();
             langSelect.SelectedIndex = 0;
             // Controllare in qualsiasi momento il cambio di lingua e inserire nelle liste le parole dei .txt corrispondenti
         }
 
-        private void langSelect_SelectedIndexChanged(object sender, EventArgs e) {
-            if (langSelect.SelectedItem?.ToString() != null) {
+        private void langSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (langSelect.SelectedItem?.ToString() != null)
+            {
                 language = langSelect.SelectedItem?.ToString();
             }
             int ris = wordManager.LoadWords(language);
@@ -25,22 +28,28 @@ namespace AltaWordle
         }
 
 
-        private void refreshLanguage(int ris) {
-            if (ris == 1) {
+        private void refreshLanguage(int ris)
+        {
+            if (ris == 1)
+            {
                 hostPlayButton.Text = "Gioca come\nOspite";
                 playerPlayButton.Text = "Seleziona\nProfilo";
                 rulesButton.Text = "Leggi le\nRegole";
                 statsButton.Text = "Statistiche\nGenerali";
                 exitButton.Text = "Esci";
                 langSelect.Text = "Lingua";
-            } else if (ris == 2)  {
+            }
+            else if (ris == 2)
+            {
                 hostPlayButton.Text = "Play as\nGuest";
                 playerPlayButton.Text = "Select\nProfile";
                 rulesButton.Text = "Read the\nRules";
                 statsButton.Text = "General\nStatistics";
                 exitButton.Text = "Exit";
                 langSelect.Text = "Language";
-            } else if (ris == 3) {
+            }
+            else if (ris == 3)
+            {
                 hostPlayButton.Text = "Jouer tout\nde suite";
                 playerPlayButton.Text = "Sélectionner\nProfil";
                 rulesButton.Text = "Lire les\nRègles";
@@ -74,6 +83,8 @@ namespace AltaWordle
 
         private void hostPlayButton_Click(object sender, EventArgs e)   // Partita come ospite
         {
+            matchPanel.BringToFront();
+            titleAlternative.BringToFront();
             // Scelta difficoltà (FACILE, MEDIO, DIFFICILE) - devo ancora dividere parole in più liste, ultima implementazione
             // Richiamo la funzione LoadWords()
             // In base alla difficoltà, seleziono da una lista "guess" una parola casuale con GetGuessWord()
@@ -123,7 +134,8 @@ namespace AltaWordle
             Application.Exit();
         }
 
-        private void exitButton_MouseEnter(object sender, EventArgs e) {
+        private void exitButton_MouseEnter(object sender, EventArgs e)
+        {
             exitButton.BackColor = Color.FromArgb(31, 31, 31);
         }
 
@@ -131,37 +143,149 @@ namespace AltaWordle
         {
             exitButton.BackColor = Color.FromArgb(10, 10, 10);
         }
-    }
 
-    public class WordManager
-    {
-        private List<string> guessWords = new List<string>();
-        private List<string> validWords = new List<string>();
-
-        public int LoadWords(string language) {
-            if (language == "Italiano (IT)") {
-                //guessWords = new List<string>(File.ReadAllLines("guess_words.txt"));
-                //validWords = new List<string>(File.ReadAllLines("valid_words.txt"));
-                return 1;
-            } else if (language == "Inglese (EN)") {
-                //guessWords = new List<string>(File.ReadAllLines("guess_words_EN.txt"));
-                //validWords = new List<string>(File.ReadAllLines("valid_words_EN.txt"));
-                return 2;
-            } else if (language == "Francese (FR)") {
-                //guessWords = new List<string>(File.ReadAllLines("guess_words_FR.txt"));
-                //validWords = new List<string>(File.ReadAllLines("valid_words_FR.txt"));
-                return 3;
+        private void letter1_1_TextChanged(object sender, EventArgs e)
+        {
+            if (letter1_1.Text.Length == 1)
+            {
+                letter1_2.Focus();
             }
-            return 0;
         }
 
-        public string GetGuessWord() {
-            if (guessWords.Count == 0) {
-                return "PROVA";     // Se la lista è vuota, c'è stato qualche errore e restituisco la parola PROVA
+        private void letter1_2_TextChanged(object sender, EventArgs e)
+        {
+            if (letter1_2.Text.Length == 1)
+            {
+                letter1_3.Focus();
             }
-            Random random = new Random();
-            int indice = random.Next(0, guessWords.Count);  // INTERVALLO: Da 0 a (N parole - 1)
-            return guessWords[indice].ToUpper();     // In maiuscolo per evitare scocciature
+            else if (letter1_2.Text.Length == 0)
+            {
+                letter1_1.Focus();
+            }
+        }
+
+        private void letter1_3_TextChanged(object sender, EventArgs e)
+        {
+            if (letter1_3.Text.Length == 1)
+            {
+                letter1_4.Focus();
+            }
+            else if (letter1_3.Text.Length == 0)
+            {
+                letter1_2.Focus();
+            }
+        }
+
+        private void letter1_4_TextChanged(object sender, EventArgs e)
+        {
+            if (letter1_4.Text.Length == 1)
+            {
+                letter1_5.Focus();
+            }
+            else if (letter1_4.Text.Length == 0)
+            {
+                letter1_3.Focus();
+            }
+        }
+
+        private void letter1_5_TextChanged(object sender, EventArgs e)
+        {
+            if (letter1_5.Text.Length == 0)
+            {
+                letter1_4.Focus();
+            }
+        }
+
+        public class WordManager
+        {
+            private List<string> guessWords = new List<string>();
+            private List<string> validWords = new List<string>();
+
+            public int LoadWords(string language)
+            {
+                if (language == "Italiano (IT)")
+                {
+                    //guessWords = new List<string>(File.ReadAllLines("guess_words.txt"));
+                    //validWords = new List<string>(File.ReadAllLines("valid_words.txt"));
+                    return 1;
+                }
+                else if (language == "Inglese (EN)")
+                {
+                    //guessWords = new List<string>(File.ReadAllLines("guess_words_EN.txt"));
+                    //validWords = new List<string>(File.ReadAllLines("valid_words_EN.txt"));
+                    return 2;
+                }
+                else if (language == "Francese (FR)")
+                {
+                    //guessWords = new List<string>(File.ReadAllLines("guess_words_FR.txt"));
+                    //validWords = new List<string>(File.ReadAllLines("valid_words_FR.txt"));
+                    return 3;
+                }
+                return 0;
+            }
+
+            public string GetGuessWord()
+            {
+                if (guessWords.Count == 0)
+                {
+                    return "PROVA";     // Se la lista è vuota, c'è stato qualche errore e restituisco la parola PROVA
+                }
+                Random random = new Random();
+                int indice = random.Next(0, guessWords.Count);  // INTERVALLO: Da 0 a (N parole - 1)
+                return guessWords[indice].ToUpper();     // In maiuscolo per evitare scocciature
+            }
+        }
+
+        private void letter2_1_TextChanged(object sender, EventArgs e)
+        {
+            if (letter2_1.Text.Length == 1)
+            {
+                letter2_2.Focus();
+            }
+        }
+
+        private void letter2_2_TextChanged(object sender, EventArgs e)
+        {
+            if (letter2_2.Text.Length == 1)
+            {
+                letter2_3.Focus();
+            }
+            else if (letter2_2.Text.Length == 0)
+            {
+                letter2_1.Focus();
+            }
+        }
+
+        private void letter2_3_TextChanged(object sender, EventArgs e)
+        {
+            if (letter2_3.Text.Length == 1)
+            {
+                letter2_4.Focus();
+            }
+            else if (letter2_3.Text.Length == 0)
+            {
+                letter2_2.Focus();
+            }
+        }
+
+        private void letter2_4_TextChanged(object sender, EventArgs e)
+        {
+            if (letter2_4.Text.Length == 1)
+            {
+                letter2_5.Focus();
+            }
+            else if (letter2_4.Text.Length == 0)
+            {
+                letter2_3.Focus();
+            }
+        }
+
+        private void letter2_5_TextChanged(object sender, EventArgs e)
+        {
+            if (letter2_5.Text.Length == 0)
+            {
+                letter2_4.Focus();
+            }
         }
     }
 }
