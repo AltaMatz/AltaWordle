@@ -28,28 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            title = new Label();
             settingsButton = new PictureBox();
             homeLayoutPanel = new TableLayoutPanel();
             statsButton = new Button();
             rulesButton = new Button();
             playerPlayButton = new Button();
             hostPlayButton = new Button();
-            settingsMenu = new Panel();
+            settingsPanel = new Panel();
             exitButton = new Label();
             langSelect = new ComboBox();
             matchPanel = new Panel();
+            deleteButton = new Label();
+            enterButton = new Label();
             sixthWordPanel = new Panel();
-            textBox16 = new TextBox();
-            textBox17 = new TextBox();
-            textBox18 = new TextBox();
-            textBox19 = new TextBox();
-            textBox20 = new TextBox();
+            letter6_1 = new TextBox();
+            letter6_5 = new TextBox();
+            letter6_2 = new TextBox();
+            letter6_4 = new TextBox();
+            letter6_3 = new TextBox();
             fifthWordPanel = new Panel();
             letter5_1 = new TextBox();
-            textBox12 = new TextBox();
+            letter5_5 = new TextBox();
             letter5_2 = new TextBox();
-            textBox14 = new TextBox();
+            letter5_4 = new TextBox();
             letter5_3 = new TextBox();
             fourthWordPanel = new Panel();
             letter4_1 = new TextBox();
@@ -76,10 +77,10 @@
             letter1_4 = new TextBox();
             letter1_3 = new TextBox();
             homePanel = new Panel();
-            titleAlternative = new Label();
+            title = new Label();
             ((System.ComponentModel.ISupportInitialize)settingsButton).BeginInit();
             homeLayoutPanel.SuspendLayout();
-            settingsMenu.SuspendLayout();
+            settingsPanel.SuspendLayout();
             matchPanel.SuspendLayout();
             sixthWordPanel.SuspendLayout();
             fifthWordPanel.SuspendLayout();
@@ -89,21 +90,6 @@
             firstWordPanel.SuspendLayout();
             homePanel.SuspendLayout();
             SuspendLayout();
-            // 
-            // title
-            // 
-            title.Anchor = AnchorStyles.Top;
-            title.Font = new Font("Bowlby One SC", 40F);
-            title.ForeColor = SystemColors.ButtonHighlight;
-            title.ImageAlign = ContentAlignment.TopCenter;
-            title.Location = new Point(49, 25);
-            title.Margin = new Padding(40, 0, 40, 0);
-            title.Name = "title";
-            title.Size = new Size(784, 113);
-            title.TabIndex = 1;
-            title.Text = "AltaWordle";
-            title.TextAlign = ContentAlignment.MiddleCenter;
-            title.UseMnemonic = false;
             // 
             // settingsButton
             // 
@@ -215,17 +201,17 @@
             hostPlayButton.UseVisualStyleBackColor = false;
             hostPlayButton.Click += hostPlayButton_Click;
             // 
-            // settingsMenu
+            // settingsPanel
             // 
-            settingsMenu.BackColor = Color.FromArgb(10, 10, 10);
-            settingsMenu.Controls.Add(exitButton);
-            settingsMenu.Controls.Add(langSelect);
-            settingsMenu.Location = new Point(0, 0);
-            settingsMenu.Margin = new Padding(0);
-            settingsMenu.Name = "settingsMenu";
-            settingsMenu.Size = new Size(246, 853);
-            settingsMenu.TabIndex = 6;
-            settingsMenu.Visible = false;
+            settingsPanel.BackColor = Color.FromArgb(10, 10, 10);
+            settingsPanel.Controls.Add(exitButton);
+            settingsPanel.Controls.Add(langSelect);
+            settingsPanel.Location = new Point(0, 0);
+            settingsPanel.Margin = new Padding(0);
+            settingsPanel.Name = "settingsPanel";
+            settingsPanel.Size = new Size(246, 853);
+            settingsPanel.TabIndex = 6;
+            settingsPanel.Visible = false;
             // 
             // exitButton
             // 
@@ -236,7 +222,7 @@
             exitButton.Location = new Point(40, 224);
             exitButton.Margin = new Padding(40, 10, 40, 10);
             exitButton.Name = "exitButton";
-            exitButton.Size = new Size(166, 27);
+            exitButton.Size = new Size(166, 35);
             exitButton.TabIndex = 1;
             exitButton.Text = "Esci";
             exitButton.TextAlign = ContentAlignment.MiddleLeft;
@@ -263,6 +249,8 @@
             // 
             // matchPanel
             // 
+            matchPanel.Controls.Add(deleteButton);
+            matchPanel.Controls.Add(enterButton);
             matchPanel.Controls.Add(sixthWordPanel);
             matchPanel.Controls.Add(fifthWordPanel);
             matchPanel.Controls.Add(fourthWordPanel);
@@ -275,14 +263,43 @@
             matchPanel.Size = new Size(882, 853);
             matchPanel.TabIndex = 7;
             // 
+            // deleteButton
+            // 
+            deleteButton.AccessibleRole = AccessibleRole.MenuBar;
+            deleteButton.Font = new Font("Bowlby One SC", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            deleteButton.ForeColor = Color.Red;
+            deleteButton.Location = new Point(440, 764);
+            deleteButton.Name = "deleteButton";
+            deleteButton.Size = new Size(235, 30);
+            deleteButton.TabIndex = 10;
+            deleteButton.Text = "CANCELLA";
+            deleteButton.TextAlign = ContentAlignment.MiddleCenter;
+            deleteButton.MouseEnter += deleteButton_MouseEnter;
+            deleteButton.MouseLeave += deleteButton_MouseLeave;
+            // 
+            // enterButton
+            // 
+            enterButton.AccessibleRole = AccessibleRole.MenuBar;
+            enterButton.Font = new Font("Bowlby One SC", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            enterButton.ForeColor = Color.Lime;
+            enterButton.Location = new Point(200, 764);
+            enterButton.Name = "enterButton";
+            enterButton.Size = new Size(235, 30);
+            enterButton.TabIndex = 9;
+            enterButton.Text = "CONFERMA";
+            enterButton.TextAlign = ContentAlignment.MiddleCenter;
+            enterButton.Click += enterButton_Click;
+            enterButton.MouseEnter += enterButton_MouseEnter;
+            enterButton.MouseLeave += enterButton_MouseLeave;
+            // 
             // sixthWordPanel
             // 
             sixthWordPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            sixthWordPanel.Controls.Add(textBox16);
-            sixthWordPanel.Controls.Add(textBox17);
-            sixthWordPanel.Controls.Add(textBox18);
-            sixthWordPanel.Controls.Add(textBox19);
-            sixthWordPanel.Controls.Add(textBox20);
+            sixthWordPanel.Controls.Add(letter6_1);
+            sixthWordPanel.Controls.Add(letter6_5);
+            sixthWordPanel.Controls.Add(letter6_2);
+            sixthWordPanel.Controls.Add(letter6_4);
+            sixthWordPanel.Controls.Add(letter6_3);
             sixthWordPanel.Enabled = false;
             sixthWordPanel.Location = new Point(200, 658);
             sixthWordPanel.Margin = new Padding(200, 10, 200, 10);
@@ -290,88 +307,98 @@
             sixthWordPanel.Size = new Size(475, 87);
             sixthWordPanel.TabIndex = 7;
             // 
-            // textBox16
+            // letter6_1
             // 
-            textBox16.BackColor = Color.FromArgb(31, 31, 31);
-            textBox16.BorderStyle = BorderStyle.FixedSingle;
-            textBox16.CharacterCasing = CharacterCasing.Upper;
-            textBox16.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
-            textBox16.ForeColor = Color.White;
-            textBox16.Location = new Point(0, 0);
-            textBox16.Margin = new Padding(5);
-            textBox16.MaxLength = 1;
-            textBox16.Name = "textBox16";
-            textBox16.Size = new Size(87, 87);
-            textBox16.TabIndex = 0;
-            textBox16.TextAlign = HorizontalAlignment.Center;
+            letter6_1.BackColor = Color.FromArgb(31, 31, 31);
+            letter6_1.BorderStyle = BorderStyle.FixedSingle;
+            letter6_1.CharacterCasing = CharacterCasing.Upper;
+            letter6_1.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
+            letter6_1.ForeColor = Color.White;
+            letter6_1.Location = new Point(0, 0);
+            letter6_1.Margin = new Padding(5);
+            letter6_1.MaxLength = 2;
+            letter6_1.Name = "letter6_1";
+            letter6_1.Size = new Size(87, 87);
+            letter6_1.TabIndex = 0;
+            letter6_1.TextAlign = HorizontalAlignment.Center;
+            letter6_1.TextChanged += letter6_1_TextChanged;
+            letter6_1.KeyPress += letter1_1_KeyPress;
             // 
-            // textBox17
+            // letter6_5
             // 
-            textBox17.BackColor = Color.FromArgb(31, 31, 31);
-            textBox17.BorderStyle = BorderStyle.FixedSingle;
-            textBox17.CharacterCasing = CharacterCasing.Upper;
-            textBox17.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
-            textBox17.ForeColor = Color.White;
-            textBox17.Location = new Point(388, 0);
-            textBox17.Margin = new Padding(5);
-            textBox17.MaxLength = 1;
-            textBox17.Name = "textBox17";
-            textBox17.Size = new Size(87, 87);
-            textBox17.TabIndex = 4;
-            textBox17.TextAlign = HorizontalAlignment.Center;
+            letter6_5.BackColor = Color.FromArgb(31, 31, 31);
+            letter6_5.BorderStyle = BorderStyle.FixedSingle;
+            letter6_5.CharacterCasing = CharacterCasing.Upper;
+            letter6_5.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
+            letter6_5.ForeColor = Color.White;
+            letter6_5.Location = new Point(388, 0);
+            letter6_5.Margin = new Padding(5);
+            letter6_5.MaxLength = 1;
+            letter6_5.Name = "letter6_5";
+            letter6_5.Size = new Size(87, 87);
+            letter6_5.TabIndex = 4;
+            letter6_5.TextAlign = HorizontalAlignment.Center;
+            letter6_5.TextChanged += letter6_5_TextChanged;
+            letter6_5.KeyPress += letter1_1_KeyPress;
             // 
-            // textBox18
+            // letter6_2
             // 
-            textBox18.BackColor = Color.FromArgb(31, 31, 31);
-            textBox18.BorderStyle = BorderStyle.FixedSingle;
-            textBox18.CharacterCasing = CharacterCasing.Upper;
-            textBox18.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
-            textBox18.ForeColor = Color.White;
-            textBox18.Location = new Point(97, 0);
-            textBox18.Margin = new Padding(5);
-            textBox18.MaxLength = 1;
-            textBox18.Name = "textBox18";
-            textBox18.Size = new Size(87, 87);
-            textBox18.TabIndex = 1;
-            textBox18.TextAlign = HorizontalAlignment.Center;
+            letter6_2.BackColor = Color.FromArgb(31, 31, 31);
+            letter6_2.BorderStyle = BorderStyle.FixedSingle;
+            letter6_2.CharacterCasing = CharacterCasing.Upper;
+            letter6_2.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
+            letter6_2.ForeColor = Color.White;
+            letter6_2.Location = new Point(97, 0);
+            letter6_2.Margin = new Padding(5);
+            letter6_2.MaxLength = 2;
+            letter6_2.Name = "letter6_2";
+            letter6_2.Size = new Size(87, 87);
+            letter6_2.TabIndex = 1;
+            letter6_2.TextAlign = HorizontalAlignment.Center;
+            letter6_2.TextChanged += letter6_2_TextChanged;
+            letter6_2.KeyPress += letter1_1_KeyPress;
             // 
-            // textBox19
+            // letter6_4
             // 
-            textBox19.BackColor = Color.FromArgb(31, 31, 31);
-            textBox19.BorderStyle = BorderStyle.FixedSingle;
-            textBox19.CharacterCasing = CharacterCasing.Upper;
-            textBox19.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
-            textBox19.ForeColor = Color.White;
-            textBox19.Location = new Point(291, 0);
-            textBox19.Margin = new Padding(5);
-            textBox19.MaxLength = 1;
-            textBox19.Name = "textBox19";
-            textBox19.Size = new Size(87, 87);
-            textBox19.TabIndex = 3;
-            textBox19.TextAlign = HorizontalAlignment.Center;
+            letter6_4.BackColor = Color.FromArgb(31, 31, 31);
+            letter6_4.BorderStyle = BorderStyle.FixedSingle;
+            letter6_4.CharacterCasing = CharacterCasing.Upper;
+            letter6_4.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
+            letter6_4.ForeColor = Color.White;
+            letter6_4.Location = new Point(291, 0);
+            letter6_4.Margin = new Padding(5);
+            letter6_4.MaxLength = 2;
+            letter6_4.Name = "letter6_4";
+            letter6_4.Size = new Size(87, 87);
+            letter6_4.TabIndex = 3;
+            letter6_4.TextAlign = HorizontalAlignment.Center;
+            letter6_4.TextChanged += letter6_4_TextChanged;
+            letter6_4.KeyPress += letter1_1_KeyPress;
             // 
-            // textBox20
+            // letter6_3
             // 
-            textBox20.BackColor = Color.FromArgb(31, 31, 31);
-            textBox20.BorderStyle = BorderStyle.FixedSingle;
-            textBox20.CharacterCasing = CharacterCasing.Upper;
-            textBox20.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
-            textBox20.ForeColor = Color.White;
-            textBox20.Location = new Point(194, 0);
-            textBox20.Margin = new Padding(5);
-            textBox20.MaxLength = 1;
-            textBox20.Name = "textBox20";
-            textBox20.Size = new Size(87, 87);
-            textBox20.TabIndex = 2;
-            textBox20.TextAlign = HorizontalAlignment.Center;
+            letter6_3.BackColor = Color.FromArgb(31, 31, 31);
+            letter6_3.BorderStyle = BorderStyle.FixedSingle;
+            letter6_3.CharacterCasing = CharacterCasing.Upper;
+            letter6_3.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
+            letter6_3.ForeColor = Color.White;
+            letter6_3.Location = new Point(194, 0);
+            letter6_3.Margin = new Padding(5);
+            letter6_3.MaxLength = 2;
+            letter6_3.Name = "letter6_3";
+            letter6_3.Size = new Size(87, 87);
+            letter6_3.TabIndex = 2;
+            letter6_3.TextAlign = HorizontalAlignment.Center;
+            letter6_3.TextChanged += letter6_3_TextChanged;
+            letter6_3.KeyPress += letter1_1_KeyPress;
             // 
             // fifthWordPanel
             // 
             fifthWordPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             fifthWordPanel.Controls.Add(letter5_1);
-            fifthWordPanel.Controls.Add(textBox12);
+            fifthWordPanel.Controls.Add(letter5_5);
             fifthWordPanel.Controls.Add(letter5_2);
-            fifthWordPanel.Controls.Add(textBox14);
+            fifthWordPanel.Controls.Add(letter5_4);
             fifthWordPanel.Controls.Add(letter5_3);
             fifthWordPanel.Enabled = false;
             fifthWordPanel.Location = new Point(200, 556);
@@ -389,26 +416,30 @@
             letter5_1.ForeColor = Color.White;
             letter5_1.Location = new Point(0, 0);
             letter5_1.Margin = new Padding(5);
-            letter5_1.MaxLength = 1;
+            letter5_1.MaxLength = 2;
             letter5_1.Name = "letter5_1";
             letter5_1.Size = new Size(87, 87);
             letter5_1.TabIndex = 0;
             letter5_1.TextAlign = HorizontalAlignment.Center;
+            letter5_1.TextChanged += letter5_1_TextChanged;
+            letter5_1.KeyPress += letter1_1_KeyPress;
             // 
-            // textBox12
+            // letter5_5
             // 
-            textBox12.BackColor = Color.FromArgb(31, 31, 31);
-            textBox12.BorderStyle = BorderStyle.FixedSingle;
-            textBox12.CharacterCasing = CharacterCasing.Upper;
-            textBox12.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
-            textBox12.ForeColor = Color.White;
-            textBox12.Location = new Point(388, 0);
-            textBox12.Margin = new Padding(5);
-            textBox12.MaxLength = 1;
-            textBox12.Name = "textBox12";
-            textBox12.Size = new Size(87, 87);
-            textBox12.TabIndex = 4;
-            textBox12.TextAlign = HorizontalAlignment.Center;
+            letter5_5.BackColor = Color.FromArgb(31, 31, 31);
+            letter5_5.BorderStyle = BorderStyle.FixedSingle;
+            letter5_5.CharacterCasing = CharacterCasing.Upper;
+            letter5_5.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
+            letter5_5.ForeColor = Color.White;
+            letter5_5.Location = new Point(388, 0);
+            letter5_5.Margin = new Padding(5);
+            letter5_5.MaxLength = 1;
+            letter5_5.Name = "letter5_5";
+            letter5_5.Size = new Size(87, 87);
+            letter5_5.TabIndex = 4;
+            letter5_5.TextAlign = HorizontalAlignment.Center;
+            letter5_5.TextChanged += letter5_5_TextChanged;
+            letter5_5.KeyPress += letter1_1_KeyPress;
             // 
             // letter5_2
             // 
@@ -419,26 +450,30 @@
             letter5_2.ForeColor = Color.White;
             letter5_2.Location = new Point(97, 0);
             letter5_2.Margin = new Padding(5);
-            letter5_2.MaxLength = 1;
+            letter5_2.MaxLength = 2;
             letter5_2.Name = "letter5_2";
             letter5_2.Size = new Size(87, 87);
             letter5_2.TabIndex = 1;
             letter5_2.TextAlign = HorizontalAlignment.Center;
+            letter5_2.TextChanged += letter5_2_TextChanged;
+            letter5_2.KeyPress += letter1_1_KeyPress;
             // 
-            // textBox14
+            // letter5_4
             // 
-            textBox14.BackColor = Color.FromArgb(31, 31, 31);
-            textBox14.BorderStyle = BorderStyle.FixedSingle;
-            textBox14.CharacterCasing = CharacterCasing.Upper;
-            textBox14.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
-            textBox14.ForeColor = Color.White;
-            textBox14.Location = new Point(291, 0);
-            textBox14.Margin = new Padding(5);
-            textBox14.MaxLength = 1;
-            textBox14.Name = "textBox14";
-            textBox14.Size = new Size(87, 87);
-            textBox14.TabIndex = 3;
-            textBox14.TextAlign = HorizontalAlignment.Center;
+            letter5_4.BackColor = Color.FromArgb(31, 31, 31);
+            letter5_4.BorderStyle = BorderStyle.FixedSingle;
+            letter5_4.CharacterCasing = CharacterCasing.Upper;
+            letter5_4.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
+            letter5_4.ForeColor = Color.White;
+            letter5_4.Location = new Point(291, 0);
+            letter5_4.Margin = new Padding(5);
+            letter5_4.MaxLength = 2;
+            letter5_4.Name = "letter5_4";
+            letter5_4.Size = new Size(87, 87);
+            letter5_4.TabIndex = 3;
+            letter5_4.TextAlign = HorizontalAlignment.Center;
+            letter5_4.TextChanged += letter5_4_TextChanged;
+            letter5_4.KeyPress += letter1_1_KeyPress;
             // 
             // letter5_3
             // 
@@ -449,11 +484,13 @@
             letter5_3.ForeColor = Color.White;
             letter5_3.Location = new Point(194, 0);
             letter5_3.Margin = new Padding(5);
-            letter5_3.MaxLength = 1;
+            letter5_3.MaxLength = 2;
             letter5_3.Name = "letter5_3";
             letter5_3.Size = new Size(87, 87);
             letter5_3.TabIndex = 2;
             letter5_3.TextAlign = HorizontalAlignment.Center;
+            letter5_3.TextChanged += letter5_3_TextChanged;
+            letter5_3.KeyPress += letter1_1_KeyPress;
             // 
             // fourthWordPanel
             // 
@@ -479,11 +516,13 @@
             letter4_1.ForeColor = Color.White;
             letter4_1.Location = new Point(0, 0);
             letter4_1.Margin = new Padding(5);
-            letter4_1.MaxLength = 1;
+            letter4_1.MaxLength = 2;
             letter4_1.Name = "letter4_1";
             letter4_1.Size = new Size(87, 87);
             letter4_1.TabIndex = 0;
             letter4_1.TextAlign = HorizontalAlignment.Center;
+            letter4_1.TextChanged += letter4_1_TextChanged;
+            letter4_1.KeyPress += letter1_1_KeyPress;
             // 
             // letter4_5
             // 
@@ -499,6 +538,8 @@
             letter4_5.Size = new Size(87, 87);
             letter4_5.TabIndex = 4;
             letter4_5.TextAlign = HorizontalAlignment.Center;
+            letter4_5.TextChanged += letter4_5_TextChanged;
+            letter4_5.KeyPress += letter1_1_KeyPress;
             // 
             // letter4_2
             // 
@@ -509,11 +550,13 @@
             letter4_2.ForeColor = Color.White;
             letter4_2.Location = new Point(97, 0);
             letter4_2.Margin = new Padding(5);
-            letter4_2.MaxLength = 1;
+            letter4_2.MaxLength = 2;
             letter4_2.Name = "letter4_2";
             letter4_2.Size = new Size(87, 87);
             letter4_2.TabIndex = 1;
             letter4_2.TextAlign = HorizontalAlignment.Center;
+            letter4_2.TextChanged += letter4_2_TextChanged;
+            letter4_2.KeyPress += letter1_1_KeyPress;
             // 
             // letter4_4
             // 
@@ -524,11 +567,13 @@
             letter4_4.ForeColor = Color.White;
             letter4_4.Location = new Point(291, 0);
             letter4_4.Margin = new Padding(5);
-            letter4_4.MaxLength = 1;
+            letter4_4.MaxLength = 2;
             letter4_4.Name = "letter4_4";
             letter4_4.Size = new Size(87, 87);
             letter4_4.TabIndex = 3;
             letter4_4.TextAlign = HorizontalAlignment.Center;
+            letter4_4.TextChanged += letter4_4_TextChanged;
+            letter4_4.KeyPress += letter1_1_KeyPress;
             // 
             // letter4_3
             // 
@@ -539,11 +584,13 @@
             letter4_3.ForeColor = Color.White;
             letter4_3.Location = new Point(194, 0);
             letter4_3.Margin = new Padding(5);
-            letter4_3.MaxLength = 1;
+            letter4_3.MaxLength = 2;
             letter4_3.Name = "letter4_3";
             letter4_3.Size = new Size(87, 87);
             letter4_3.TabIndex = 2;
             letter4_3.TextAlign = HorizontalAlignment.Center;
+            letter4_3.TextChanged += letter4_3_TextChanged;
+            letter4_3.KeyPress += letter1_1_KeyPress;
             // 
             // thirdWordPanel
             // 
@@ -569,11 +616,13 @@
             letter3_1.ForeColor = Color.White;
             letter3_1.Location = new Point(0, 0);
             letter3_1.Margin = new Padding(5);
-            letter3_1.MaxLength = 1;
+            letter3_1.MaxLength = 2;
             letter3_1.Name = "letter3_1";
             letter3_1.Size = new Size(87, 87);
             letter3_1.TabIndex = 0;
             letter3_1.TextAlign = HorizontalAlignment.Center;
+            letter3_1.TextChanged += letter3_1_TextChanged;
+            letter3_1.KeyPress += letter1_1_KeyPress;
             // 
             // letter3_5
             // 
@@ -589,6 +638,8 @@
             letter3_5.Size = new Size(87, 87);
             letter3_5.TabIndex = 4;
             letter3_5.TextAlign = HorizontalAlignment.Center;
+            letter3_5.TextChanged += letter3_5_TextChanged;
+            letter3_5.KeyPress += letter1_1_KeyPress;
             // 
             // letter3_2
             // 
@@ -599,11 +650,13 @@
             letter3_2.ForeColor = Color.White;
             letter3_2.Location = new Point(97, 0);
             letter3_2.Margin = new Padding(5);
-            letter3_2.MaxLength = 1;
+            letter3_2.MaxLength = 2;
             letter3_2.Name = "letter3_2";
             letter3_2.Size = new Size(87, 87);
             letter3_2.TabIndex = 1;
             letter3_2.TextAlign = HorizontalAlignment.Center;
+            letter3_2.TextChanged += letter3_2_TextChanged;
+            letter3_2.KeyPress += letter1_1_KeyPress;
             // 
             // letter3_4
             // 
@@ -614,11 +667,13 @@
             letter3_4.ForeColor = Color.White;
             letter3_4.Location = new Point(291, 0);
             letter3_4.Margin = new Padding(5);
-            letter3_4.MaxLength = 1;
+            letter3_4.MaxLength = 2;
             letter3_4.Name = "letter3_4";
             letter3_4.Size = new Size(87, 87);
             letter3_4.TabIndex = 3;
             letter3_4.TextAlign = HorizontalAlignment.Center;
+            letter3_4.TextChanged += letter3_4_TextChanged;
+            letter3_4.KeyPress += letter1_1_KeyPress;
             // 
             // letter3_3
             // 
@@ -629,11 +684,13 @@
             letter3_3.ForeColor = Color.White;
             letter3_3.Location = new Point(194, 0);
             letter3_3.Margin = new Padding(5);
-            letter3_3.MaxLength = 1;
+            letter3_3.MaxLength = 2;
             letter3_3.Name = "letter3_3";
             letter3_3.Size = new Size(87, 87);
             letter3_3.TabIndex = 2;
             letter3_3.TextAlign = HorizontalAlignment.Center;
+            letter3_3.TextChanged += letter3_3_TextChanged;
+            letter3_3.KeyPress += letter1_1_KeyPress;
             // 
             // secondWordPanel
             // 
@@ -659,12 +716,13 @@
             letter2_1.ForeColor = Color.White;
             letter2_1.Location = new Point(0, 0);
             letter2_1.Margin = new Padding(5);
-            letter2_1.MaxLength = 1;
+            letter2_1.MaxLength = 2;
             letter2_1.Name = "letter2_1";
             letter2_1.Size = new Size(87, 87);
             letter2_1.TabIndex = 0;
             letter2_1.TextAlign = HorizontalAlignment.Center;
             letter2_1.TextChanged += letter2_1_TextChanged;
+            letter2_1.KeyPress += letter1_1_KeyPress;
             // 
             // letter2_5
             // 
@@ -681,6 +739,7 @@
             letter2_5.TabIndex = 4;
             letter2_5.TextAlign = HorizontalAlignment.Center;
             letter2_5.TextChanged += letter2_5_TextChanged;
+            letter2_5.KeyPress += letter1_1_KeyPress;
             // 
             // letter2_2
             // 
@@ -691,12 +750,13 @@
             letter2_2.ForeColor = Color.White;
             letter2_2.Location = new Point(97, 0);
             letter2_2.Margin = new Padding(5);
-            letter2_2.MaxLength = 1;
+            letter2_2.MaxLength = 2;
             letter2_2.Name = "letter2_2";
             letter2_2.Size = new Size(87, 87);
             letter2_2.TabIndex = 1;
             letter2_2.TextAlign = HorizontalAlignment.Center;
             letter2_2.TextChanged += letter2_2_TextChanged;
+            letter2_2.KeyPress += letter1_1_KeyPress;
             // 
             // letter2_4
             // 
@@ -707,12 +767,13 @@
             letter2_4.ForeColor = Color.White;
             letter2_4.Location = new Point(291, 0);
             letter2_4.Margin = new Padding(5);
-            letter2_4.MaxLength = 1;
+            letter2_4.MaxLength = 2;
             letter2_4.Name = "letter2_4";
             letter2_4.Size = new Size(87, 87);
             letter2_4.TabIndex = 3;
             letter2_4.TextAlign = HorizontalAlignment.Center;
             letter2_4.TextChanged += letter2_4_TextChanged;
+            letter2_4.KeyPress += letter1_1_KeyPress;
             // 
             // letter2_3
             // 
@@ -723,12 +784,13 @@
             letter2_3.ForeColor = Color.White;
             letter2_3.Location = new Point(194, 0);
             letter2_3.Margin = new Padding(5);
-            letter2_3.MaxLength = 1;
+            letter2_3.MaxLength = 2;
             letter2_3.Name = "letter2_3";
             letter2_3.Size = new Size(87, 87);
             letter2_3.TabIndex = 2;
             letter2_3.TextAlign = HorizontalAlignment.Center;
             letter2_3.TextChanged += letter2_3_TextChanged;
+            letter2_3.KeyPress += letter1_1_KeyPress;
             // 
             // firstWordPanel
             // 
@@ -753,12 +815,13 @@
             letter1_1.ForeColor = Color.White;
             letter1_1.Location = new Point(0, 0);
             letter1_1.Margin = new Padding(5);
-            letter1_1.MaxLength = 1;
+            letter1_1.MaxLength = 2;
             letter1_1.Name = "letter1_1";
             letter1_1.Size = new Size(87, 87);
             letter1_1.TabIndex = 0;
             letter1_1.TextAlign = HorizontalAlignment.Center;
             letter1_1.TextChanged += letter1_1_TextChanged;
+            letter1_1.KeyPress += letter1_1_KeyPress;
             // 
             // letter1_5
             // 
@@ -775,6 +838,7 @@
             letter1_5.TabIndex = 4;
             letter1_5.TextAlign = HorizontalAlignment.Center;
             letter1_5.TextChanged += letter1_5_TextChanged;
+            letter1_5.KeyPress += letter1_1_KeyPress;
             // 
             // letter1_2
             // 
@@ -785,12 +849,13 @@
             letter1_2.ForeColor = Color.White;
             letter1_2.Location = new Point(97, 0);
             letter1_2.Margin = new Padding(5);
-            letter1_2.MaxLength = 1;
+            letter1_2.MaxLength = 2;
             letter1_2.Name = "letter1_2";
             letter1_2.Size = new Size(87, 87);
             letter1_2.TabIndex = 1;
             letter1_2.TextAlign = HorizontalAlignment.Center;
             letter1_2.TextChanged += letter1_2_TextChanged;
+            letter1_2.KeyPress += letter1_1_KeyPress;
             // 
             // letter1_4
             // 
@@ -801,12 +866,13 @@
             letter1_4.ForeColor = Color.White;
             letter1_4.Location = new Point(291, 0);
             letter1_4.Margin = new Padding(5);
-            letter1_4.MaxLength = 1;
+            letter1_4.MaxLength = 2;
             letter1_4.Name = "letter1_4";
             letter1_4.Size = new Size(87, 87);
             letter1_4.TabIndex = 3;
             letter1_4.TextAlign = HorizontalAlignment.Center;
             letter1_4.TextChanged += letter1_4_TextChanged;
+            letter1_4.KeyPress += letter1_1_KeyPress;
             // 
             // letter1_3
             // 
@@ -817,18 +883,16 @@
             letter1_3.ForeColor = Color.White;
             letter1_3.Location = new Point(194, 0);
             letter1_3.Margin = new Padding(5);
-            letter1_3.MaxLength = 1;
+            letter1_3.MaxLength = 2;
             letter1_3.Name = "letter1_3";
             letter1_3.Size = new Size(87, 87);
             letter1_3.TabIndex = 2;
             letter1_3.TextAlign = HorizontalAlignment.Center;
             letter1_3.TextChanged += letter1_3_TextChanged;
+            letter1_3.KeyPress += letter1_1_KeyPress;
             // 
             // homePanel
             // 
-            homePanel.Controls.Add(settingsButton);
-            homePanel.Controls.Add(settingsMenu);
-            homePanel.Controls.Add(title);
             homePanel.Controls.Add(homeLayoutPanel);
             homePanel.Dock = DockStyle.Fill;
             homePanel.Location = new Point(0, 0);
@@ -836,20 +900,20 @@
             homePanel.Size = new Size(882, 853);
             homePanel.TabIndex = 0;
             // 
-            // titleAlternative
+            // title
             // 
-            titleAlternative.Anchor = AnchorStyles.Top;
-            titleAlternative.Font = new Font("Bowlby One SC", 40F);
-            titleAlternative.ForeColor = SystemColors.ButtonHighlight;
-            titleAlternative.ImageAlign = ContentAlignment.TopCenter;
-            titleAlternative.Location = new Point(49, 25);
-            titleAlternative.Margin = new Padding(40, 0, 40, 0);
-            titleAlternative.Name = "titleAlternative";
-            titleAlternative.Size = new Size(784, 113);
-            titleAlternative.TabIndex = 7;
-            titleAlternative.Text = "AltaWordle";
-            titleAlternative.TextAlign = ContentAlignment.MiddleCenter;
-            titleAlternative.UseMnemonic = false;
+            title.Anchor = AnchorStyles.Top;
+            title.Font = new Font("Bowlby One SC", 40F);
+            title.ForeColor = SystemColors.ButtonHighlight;
+            title.ImageAlign = ContentAlignment.TopCenter;
+            title.Location = new Point(49, 25);
+            title.Margin = new Padding(40, 0, 40, 0);
+            title.Name = "title";
+            title.Size = new Size(784, 113);
+            title.TabIndex = 1;
+            title.Text = "AltaWordle";
+            title.TextAlign = ContentAlignment.MiddleCenter;
+            title.UseMnemonic = false;
             // 
             // Home
             // 
@@ -857,8 +921,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(31, 31, 31);
             ClientSize = new Size(882, 853);
+            Controls.Add(settingsButton);
+            Controls.Add(settingsPanel);
+            Controls.Add(title);
             Controls.Add(homePanel);
-            Controls.Add(titleAlternative);
             Controls.Add(matchPanel);
             ForeColor = SystemColors.ActiveCaptionText;
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -867,7 +933,7 @@
             Text = "AltaWordle";
             ((System.ComponentModel.ISupportInitialize)settingsButton).EndInit();
             homeLayoutPanel.ResumeLayout(false);
-            settingsMenu.ResumeLayout(false);
+            settingsPanel.ResumeLayout(false);
             matchPanel.ResumeLayout(false);
             sixthWordPanel.ResumeLayout(false);
             sixthWordPanel.PerformLayout();
@@ -886,11 +952,9 @@
         }
 
         #endregion
-
-        private Label title;
         private PictureBox settingsButton;
         private TableLayoutPanel homeLayoutPanel;
-        private Panel settingsMenu;
+        private Panel settingsPanel;
         public Button hostPlayButton;
         public Button playerPlayButton;
         public Button rulesButton;
@@ -899,7 +963,6 @@
         public Label exitButton;
         private Panel matchPanel;
         private Panel homePanel;
-        private Label titleAlternative;
         private TextBox letter1_1;
         private TextBox letter1_5;
         private TextBox letter1_4;
@@ -913,16 +976,16 @@
         private TextBox letter2_4;
         private TextBox letter2_3;
         private Panel fifthWordPanel;
-        private TextBox textBox16;
-        private TextBox textBox17;
-        private TextBox textBox18;
-        private TextBox textBox19;
-        private TextBox textBox20;
+        private TextBox letter6_1;
+        private TextBox letter6_5;
+        private TextBox letter6_2;
+        private TextBox letter6_4;
+        private TextBox letter6_3;
         private Panel sixthWordPanel;
         private TextBox letter5_1;
-        private TextBox textBox12;
+        private TextBox letter5_5;
         private TextBox letter5_2;
-        private TextBox textBox14;
+        private TextBox letter5_4;
         private TextBox letter5_3;
         private Panel fourthWordPanel;
         private TextBox letter4_1;
@@ -936,5 +999,8 @@
         private TextBox letter3_2;
         private TextBox letter3_4;
         private TextBox letter3_3;
+        private Label title;
+        private Label deleteButton;
+        private Label enterButton;
     }
 }
