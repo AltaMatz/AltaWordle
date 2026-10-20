@@ -1,4 +1,7 @@
+using Microsoft.VisualBasic.ApplicationServices;
 using System.Drawing;
+using System.Drawing.Text;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace AltaWordle
@@ -9,16 +12,56 @@ namespace AltaWordle
         private WordManager wordManager = new WordManager();
         private string language = "Italiano (IT)";
         private string insertedText = "";
+        public string guessWord = "";
 
         public Home()
         {
             InitializeComponent();
-            settingsButton.BringToFront();
             langSelect.SelectedIndex = 0;
-            // Controllare in qualsiasi momento il cambio di lingua e inserire nelle liste le parole dei .txt corrispondenti
         }
 
-        private void langSelect_SelectedIndexChanged(object sender, EventArgs e)
+        // CLASSE WORDMANAGER
+        public class WordManager
+        {
+            public List<string> guessWords = new List<string>();
+            public string percorso = "";
+
+            public int LoadWords(string language)
+            {
+                if (language == "Italiano (IT)")
+                {
+                    guessWords = new List<string>(File.ReadAllLines(Path.Combine(AppContext.BaseDirectory, "guess_words.txt")));
+                    percorso = "valid_words_.txt";
+                    return 1;
+                }
+                else if (language == "Inglese (EN)")
+                {
+                    guessWords = new List<string>(File.ReadAllLines(Path.Combine(AppContext.BaseDirectory, "guess_words_EN.txt")));
+                    percorso = "valid_words_EN.txt";
+                    return 2;
+                }
+                else if (language == "Francese (FR)")
+                {
+                    guessWords = new List<string>(File.ReadAllLines(Path.Combine(AppContext.BaseDirectory, "guess_words_FR.txt")));
+                    percorso = "valid_words_FR.txt";
+                    return 3;
+                }
+                return 0;
+            }
+
+            public string GetGuessWord()
+            {
+                if (guessWords.Count == 0)
+                {
+                    return "PROVA";     // Se la lista è vuota, c'è stato qualche errore e restituisco la parola PROVA
+                }
+                Random random = new Random();
+                int indice = random.Next(0, guessWords.Count);  // INTERVALLO: Da 0 a (N parole - 1)
+                return guessWords[indice].ToUpper();     // In maiuscolo per evitare scocciature
+            }
+        }
+
+        private void langSelect_SelectedIndexChanged(object sender, EventArgs e) // Controllare in qualsiasi momento il cambio di lingua e inserire nelle liste le parole dei .txt corrispondenti
         {
             if (langSelect.SelectedItem?.ToString() != null)
             {
@@ -27,7 +70,6 @@ namespace AltaWordle
             int ris = wordManager.LoadWords(language);
             refreshLanguage(ris);
         }
-
 
         private void refreshLanguage(int ris)                           // Traduzione pulsanti e label
         {
@@ -66,6 +108,7 @@ namespace AltaWordle
             }
         }
 
+        // FUNZIONI "CLICK" PULSANTI HOME
         private void settingsButton_Click(object sender, EventArgs e)   // Apertura menu laterale e spostamento oggetti
         {
             if (settingsPanel.Visible == false)  // Quando apro il menu, ridimensiono e sposto gli altri elementi e coloro l'icona settings
@@ -84,6 +127,8 @@ namespace AltaWordle
                 sixthWordPanel.Location = new Point(307, 658);
                 enterButton.Location = new Point(307, 764);
                 deleteButton.Location = new Point(547, 764);
+                errorLabel.Location = new Point(307, 804);
+                victoryPanel.Location = new Point(322, 245);
             }
             else                                // Quando chiudo il menu, ripristino le dimensioni e i colori originali
             {
@@ -101,6 +146,8 @@ namespace AltaWordle
                 sixthWordPanel.Location = new Point(200, 658);
                 enterButton.Location = new Point(200, 764);
                 deleteButton.Location = new Point(440, 764);
+                errorLabel.Location = new Point(200, 804);
+                victoryPanel.Location = new Point(215, 245);
             }
         }
 
@@ -110,6 +157,9 @@ namespace AltaWordle
             title.BringToFront();
             settingsPanel.BringToFront();
             settingsButton.BringToFront();
+
+            wordManager.LoadWords(language);
+            guessWord = wordManager.GetGuessWord();
             // Scelta difficoltà (FACILE, MEDIO, DIFFICILE) - devo ancora dividere parole in più liste, ultima implementazione
             // Richiamo la funzione LoadWords()
             // In base alla difficoltà, seleziono da una lista "guess" una parola casuale con GetGuessWord()
@@ -144,6 +194,7 @@ namespace AltaWordle
             // Se loggato, mostrare anche le statistiche personali (con possibilità di reset)
         }
 
+        // FUNZIONI PULSANTI MENU LATERALE
         private void langSelect_DropDown(object sender, EventArgs e)
         {
             exitButton.Location = new Point(40, 305);
@@ -169,6 +220,7 @@ namespace AltaWordle
             exitButton.BackColor = Color.FromArgb(10, 10, 10);
         }
 
+        // FUNZIONI TEXTBOX LETTERE
         private void letter1_1_TextChanged(object sender, EventArgs e)
         {
             insertedText = letter1_1.Text;
@@ -254,46 +306,6 @@ namespace AltaWordle
                 letter1_4.Focus();
                 letter1_4.SelectionStart = letter1_4.Text.Length;
                 letter1_4.SelectionLength = 0;                      // Le ultime due righe evitano evidenziazione
-            }
-        }
-
-        public class WordManager
-        {
-            private List<string> guessWords = new List<string>();
-            private List<string> validWords = new List<string>();
-
-            public int LoadWords(string language)
-            {
-                if (language == "Italiano (IT)")
-                {
-                    //guessWords = new List<string>(File.ReadAllLines("guess_words.txt"));
-                    //validWords = new List<string>(File.ReadAllLines("valid_words.txt"));
-                    return 1;
-                }
-                else if (language == "Inglese (EN)")
-                {
-                    //guessWords = new List<string>(File.ReadAllLines("guess_words_EN.txt"));
-                    //validWords = new List<string>(File.ReadAllLines("valid_words_EN.txt"));
-                    return 2;
-                }
-                else if (language == "Francese (FR)")
-                {
-                    //guessWords = new List<string>(File.ReadAllLines("guess_words_FR.txt"));
-                    //validWords = new List<string>(File.ReadAllLines("valid_words_FR.txt"));
-                    return 3;
-                }
-                return 0;
-            }
-
-            public string GetGuessWord()
-            {
-                if (guessWords.Count == 0)
-                {
-                    return "PROVA";     // Se la lista è vuota, c'è stato qualche errore e restituisco la parola PROVA
-                }
-                Random random = new Random();
-                int indice = random.Next(0, guessWords.Count);  // INTERVALLO: Da 0 a (N parole - 1)
-                return guessWords[indice].ToUpper();     // In maiuscolo per evitare scocciature
             }
         }
 
@@ -737,6 +749,15 @@ namespace AltaWordle
             }
         }
 
+        private void letter1_1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+            {
+                e.Handled = true; // Blocca il carattere
+            }
+        }
+
+        // FUNZIONI PULSANTI "CONFERMA" E "CANCELLA"
         private void enterButton_MouseEnter(object sender, EventArgs e)
         {
             enterButton.BackColor = Color.FromArgb(10, 10, 10);
@@ -757,76 +778,617 @@ namespace AltaWordle
             deleteButton.BackColor = Color.FromArgb(31, 31, 31);
         }
 
-        private void letter1_1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
-            {
-                e.Handled = true; // Blocca il carattere
-            }
-        }
-
         private void enterButton_Click(object sender, EventArgs e)
         {
             string word = "";
-            if (firstWordPanel.Enabled == false)
+            string colors = "";
+            int ris = 0;
+            if (letter1_1.ReadOnly == true)
             {
-                if (secondWordPanel.Enabled == false)
+                if (letter2_1.ReadOnly == true)
                 {
-                    if (thirdWordPanel.Enabled == false)
+                    if (letter3_1.ReadOnly == true)
                     {
-                        if (fourthWordPanel.Enabled == false)
+                        if (letter4_1.ReadOnly == true)
                         {
-                            if (fifthWordPanel.Enabled == false && letter6_1.Text.Length == 1 && letter6_2.Text.Length == 1 && letter6_3.Text.Length == 1 && letter6_4.Text.Length == 1 && letter6_5.Text.Length == 1)
+                            if (letter5_1.ReadOnly == true && letter6_1.Text.Length == 1 && letter6_2.Text.Length == 1 && letter6_3.Text.Length == 1 && letter6_4.Text.Length == 1 && letter6_5.Text.Length == 1)
                             {
                                 word = letter6_1.Text + letter6_2.Text + letter6_3.Text + letter6_4.Text + letter6_5.Text;
-                                // funzione controllo e validazione sesta parola
-                                sixthWordPanel.Enabled = false;
-                                // condizione vittoria
+                                ris = Convert.ToInt32(validation(word));    // LA PAROLA ESISTE?
+                                if (ris == 0)
+                                    return;
+                                colors = compare(word, guessWord);  // LA PAROLA COINCIDE CON QUELLA SEGRETA?
+                                color6(colors);     // ASSEGNAZIONE COLORI ALLE CASELLE
+                                letter6_1.ReadOnly = true; letter6_2.ReadOnly = true; letter6_3.ReadOnly = true; letter6_4.ReadOnly = true; letter6_5.ReadOnly = true;
+                                victory(colors);    // CONDIZIONE VITTORIA
                             }
-                            else if (fifthWordPanel.Enabled == true && letter5_1.Text.Length == 1 && letter5_2.Text.Length == 1 && letter5_3.Text.Length == 1 && letter5_4.Text.Length == 1 && letter5_5.Text.Length == 1)
+                            else if (letter5_1.ReadOnly == false && letter5_1.Text.Length == 1 && letter5_2.Text.Length == 1 && letter5_3.Text.Length == 1 && letter5_4.Text.Length == 1 && letter5_5.Text.Length == 1)
                             {
                                 word = letter5_1.Text + letter5_2.Text + letter5_3.Text + letter5_4.Text + letter5_5.Text;
-                                // funzione controllo e validazione quinta parola
-                                fifthWordPanel.Enabled = false;
-                                // condizione vittoria
+                                ris = Convert.ToInt32(validation(word));    // LA PAROLA ESISTE?
+                                if (ris == 0)
+                                    return;
+                                colors = compare(word, guessWord);  // LA PAROLA COINCIDE CON QUELLA SEGRETA?
+                                color5(colors);     // ASSEGNAZIONE COLORI ALLE CASELLE
+                                letter5_1.ReadOnly = true; letter5_2.ReadOnly = true; letter5_3.ReadOnly = true; letter5_4.ReadOnly = true; letter5_5.ReadOnly = true;
+                                victory(colors);    // CONDIZIONE VITTORIA
                                 sixthWordPanel.Enabled = true;
+                                letter6_1.Focus();
                             }
                         }
                         else if (letter4_1.Text.Length == 1 && letter4_2.Text.Length == 1 && letter4_3.Text.Length == 1 && letter4_4.Text.Length == 1 && letter4_5.Text.Length == 1)
                         {
                             word = letter4_1.Text + letter4_2.Text + letter4_3.Text + letter4_4.Text + letter4_5.Text;
-                            // funzione controllo e validazione quarta parola
-                            fourthWordPanel.Enabled = false;
-                            // condizione vittoria
+                            ris = Convert.ToInt32(validation(word));    // LA PAROLA ESISTE?
+                            if (ris == 0)
+                                return;
+                            colors = compare(word, guessWord);  // LA PAROLA COINCIDE CON QUELLA SEGRETA?
+                            color4(colors);     // ASSEGNAZIONE COLORI ALLE CASELLE
+                            letter4_1.ReadOnly = true; letter4_2.ReadOnly = true; letter4_3.ReadOnly = true; letter4_4.ReadOnly = true; letter4_5.ReadOnly = true;
+                            victory(colors);    // CONDIZIONE VITTORIA
                             fifthWordPanel.Enabled = true;
+                            letter5_1.Focus();
                         }
                     }
                     else if (letter3_1.Text.Length == 1 && letter3_2.Text.Length == 1 && letter3_3.Text.Length == 1 && letter3_4.Text.Length == 1 && letter3_5.Text.Length == 1)
                     {
                         word = letter3_1.Text + letter3_2.Text + letter3_3.Text + letter3_4.Text + letter3_5.Text;
-                        // funzione controllo e validazione terza parola
-                        thirdWordPanel.Enabled = false;
-                        // condizione vittoria
+                        ris = Convert.ToInt32(validation(word));    // LA PAROLA ESISTE?
+                        if (ris == 0)
+                            return;
+                        colors = compare(word, guessWord);  // LA PAROLA COINCIDE CON QUELLA SEGRETA?
+                        color3(colors);     // ASSEGNAZIONE COLORI ALLE CASELLE
+                        letter3_1.ReadOnly = true; letter3_2.ReadOnly = true; letter3_3.ReadOnly = true; letter3_4.ReadOnly = true; letter3_5.ReadOnly = true;
+                        victory(colors);    // CONDIZIONE VITTORIA
                         fourthWordPanel.Enabled = true;
+                        letter4_1.Focus();
                     }
                 }
                 else if (letter2_1.Text.Length == 1 && letter2_2.Text.Length == 1 && letter2_3.Text.Length == 1 && letter2_4.Text.Length == 1 && letter2_5.Text.Length == 1)
                 {
                     word = letter2_1.Text + letter2_2.Text + letter2_3.Text + letter2_4.Text + letter2_5.Text;
-                    // funzione controllo e validazione seconda parola
-                    secondWordPanel.Enabled = false;
-                    // condizione vittoria
+                    ris = Convert.ToInt32(validation(word));    // LA PAROLA ESISTE?
+                    if (ris == 0)
+                        return;
+                    colors = compare(word, guessWord);  // LA PAROLA COINCIDE CON QUELLA SEGRETA?
+                    color2(colors);     // ASSEGNAZIONE COLORI ALLE CASELLE
+                    letter2_1.ReadOnly = true; letter2_2.ReadOnly = true; letter2_3.ReadOnly = true; letter2_4.ReadOnly = true; letter2_5.ReadOnly = true;
+                    victory(colors);    // CONDIZIONE VITTORIA
                     thirdWordPanel.Enabled = true;
+                    letter3_1.Focus();
                 }
             }
             else if (letter1_1.Text.Length == 1 && letter1_2.Text.Length == 1 && letter1_3.Text.Length == 1 && letter1_4.Text.Length == 1 && letter1_5.Text.Length == 1)
             {
                 word = letter1_1.Text + letter1_2.Text + letter1_3.Text + letter1_4.Text + letter1_5.Text;
-                // funzione controllo e validazione prima parola
-                firstWordPanel.Enabled = false;
-                // condizione vittoria
+                ris = Convert.ToInt32(validation(word));    // LA PAROLA ESISTE?
+                if (ris == 0)
+                    return;
+                colors = compare(word, guessWord);      // LA PAROLA COINCIDE CON QUELLA SEGRETA?
+                color1(colors);     // ASSEGNAZIONE COLORI ALLE CASELLE
+                letter1_1.ReadOnly = true; letter1_2.ReadOnly = true; letter1_3.ReadOnly = true; letter1_4.ReadOnly = true; letter1_5.ReadOnly = true;
+                victory(colors);    // CONDIZIONE VITTORIA
                 secondWordPanel.Enabled = true;
+                letter2_1.Focus();
             }
+            else
+            {
+                errorLabel.Text = "ERRORE: La parola deve essere lunga 5 lettere!";
+                errorLabel.Visible = true;
+            }
+            // DEBUG LABEL PAROLA E COLORE
+            //debugWordLabel.Visible = true;
+            //debugWordLabel.Text = word;
+            //debugColorLabel.Visible = true;
+            //debugColorLabel.Text = colors;
+        }
+
+        // FUNZIONI DI GIOCO
+        private bool validation(string word)
+        {
+            errorLabel.Visible = false;
+            foreach (string validWord in File.ReadLines("valid_words.txt"))
+            {
+                if (word == validWord)
+                {
+                    return true;
+                }
+            }
+            errorLabel.Visible = true;
+            errorLabel.Text = "ERRORE: La parola '" + word + "' non è valida!";
+            return false;
+        }
+
+        private string compare(string word, string guessWord)
+        {
+
+            char[] colors = new char[5];
+            bool[] used = new bool[5];  // verdi e gialle sono "true" nelle rispettive posizioni
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (word[i] == guessWord[i])
+                {
+                    colors[i] = 'G';    // GREEN
+                    used[i] = true;
+                }
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (colors[i] == 'G') continue; // "continue" fa i+1 e ricomincia da capo il ciclo se la lettera è verde
+
+                colors[i] = 'B';    // BLACK
+                for (int j = 0; j < 5; j++)
+                {
+                    if (!used[j] && word[i] == guessWord[j])    // la lettera diventa gialla solo se ci sono lettere non verdi ma contenute nella parola corretta
+                    {
+                        colors[i] = 'Y';    //YELLOW
+                        used[j] = true;
+                        break;
+                    }
+                }
+            }
+
+            return new string(colors);
+        }
+
+        private void victory(string colors)
+        {
+            if (colors == "GGGGG")
+            {
+                victoryPanel.Visible = true;
+                resultLabel.Visible = true;
+                resultLabel.Text = "VITTORIA!";
+                resultLabel.ForeColor = Color.FromArgb(0, 255, 0);
+                enterButton.Enabled = false;
+                deleteButton.Enabled = false;
+            }
+            else if (letter6_1.Text.Length == 1 && letter6_2.Text.Length == 1 && letter6_3.Text.Length == 1 && letter6_4.Text.Length == 1 && letter6_5.Text.Length == 1)
+            {
+                victoryPanel.Visible = true;
+                resultLabel.Visible = true;
+                resultLabel.Text = "SCONFITTA!";
+                resultLabel.ForeColor = Color.FromArgb(192, 0, 192);
+                enterButton.Enabled = false;
+                deleteButton.Enabled = false;
+            }
+        }
+
+        private async Task color1(string colors)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                if (colors[i] == 'G')
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter1_1.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 1:
+                            letter1_2.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 2:
+                            letter1_3.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 3:
+                            letter1_4.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 4:
+                            letter1_5.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                    }
+                }
+                else if (colors[i] == 'Y')
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter1_1.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 1:
+                            letter1_2.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 2:
+                            letter1_3.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 3:
+                            letter1_4.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 4:
+                            letter1_5.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter1_1.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 1:
+                            letter1_2.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 2:
+                            letter1_3.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 3:
+                            letter1_4.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 4:
+                            letter1_5.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                    }
+                }
+                await Task.Delay(200);
+            }
+        }
+
+        private async Task color2(string colors)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                if (colors[i] == 'G')
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter2_1.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 1:
+                            letter2_2.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 2:
+                            letter2_3.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 3:
+                            letter2_4.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 4:
+                            letter2_5.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                    }
+                }
+                else if (colors[i] == 'Y')
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter2_1.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 1:
+                            letter2_2.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 2:
+                            letter2_3.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 3:
+                            letter2_4.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 4:
+                            letter2_5.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter2_1.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 1:
+                            letter2_2.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 2:
+                            letter2_3.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 3:
+                            letter2_4.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 4:
+                            letter2_5.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                    }
+                }
+                await Task.Delay(200);
+            }
+        }
+
+        private async Task color3(string colors)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                if (colors[i] == 'G')
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter3_1.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 1:
+                            letter3_2.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 2:
+                            letter3_3.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 3:
+                            letter3_4.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 4:
+                            letter3_5.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                    }
+                }
+                else if (colors[i] == 'Y')
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter3_1.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 1:
+                            letter3_2.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 2:
+                            letter3_3.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 3:
+                            letter3_4.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 4:
+                            letter3_5.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter3_1.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 1:
+                            letter3_2.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 2:
+                            letter3_3.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 3:
+                            letter3_4.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 4:
+                            letter3_5.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                    }
+                }
+                await Task.Delay(200);
+            }
+        }
+
+        private async Task color4(string colors)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                if (colors[i] == 'G')
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter4_1.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 1:
+                            letter4_2.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 2:
+                            letter4_3.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 3:
+                            letter4_4.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 4:
+                            letter4_5.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                    }
+                }
+                else if (colors[i] == 'Y')
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter4_1.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 1:
+                            letter4_2.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 2:
+                            letter4_3.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 3:
+                            letter4_4.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 4:
+                            letter4_5.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter4_1.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 1:
+                            letter4_2.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 2:
+                            letter4_3.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 3:
+                            letter4_4.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 4:
+                            letter4_5.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                    }
+                }
+                await Task.Delay(200);
+            }
+        }
+
+        private async Task color5(string colors)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                if (colors[i] == 'G')
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter5_1.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 1:
+                            letter5_2.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 2:
+                            letter5_3.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 3:
+                            letter5_4.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 4:
+                            letter5_5.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                    }
+                }
+                else if (colors[i] == 'Y')
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter5_1.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 1:
+                            letter5_2.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 2:
+                            letter5_3.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 3:
+                            letter5_4.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 4:
+                            letter5_5.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter5_1.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 1:
+                            letter5_2.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 2:
+                            letter5_3.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 3:
+                            letter5_4.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 4:
+                            letter5_5.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                    }
+                }
+                await Task.Delay(200);
+            }
+        }
+
+        private async Task color6(string colors)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                if (colors[i] == 'G')
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter6_1.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 1:
+                            letter6_2.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 2:
+                            letter6_3.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 3:
+                            letter6_4.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                        case 4:
+                            letter6_5.BackColor = Color.FromArgb(0, 255, 0);
+                            break;
+                    }
+                }
+                else if (colors[i] == 'Y')
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter6_1.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 1:
+                            letter6_2.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 2:
+                            letter6_3.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 3:
+                            letter6_4.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                        case 4:
+                            letter6_5.BackColor = Color.FromArgb(192, 0, 192);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            letter6_1.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 1:
+                            letter6_2.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 2:
+                            letter6_3.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 3:
+                            letter6_4.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                        case 4:
+                            letter6_5.BackColor = Color.FromArgb(0, 0, 0);
+                            break;
+                    }
+                }
+                await Task.Delay(200);
+            }
+        }
+
+        // FUNZIONI "CLICK" PULSANTI VITTORIA E SCONFITTA
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            victoryPanel.Visible = false;
+            homePanel.BringToFront();
+            title.BringToFront();
+            settingsPanel.BringToFront();
+            settingsButton.BringToFront();
         }
     }
 }

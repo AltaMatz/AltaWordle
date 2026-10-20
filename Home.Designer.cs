@@ -38,6 +38,13 @@
             exitButton = new Label();
             langSelect = new ComboBox();
             matchPanel = new Panel();
+            victoryPanel = new Panel();
+            playAgainButton = new Button();
+            backButton = new Button();
+            resultLabel = new Label();
+            debugColorLabel = new Label();
+            errorLabel = new Label();
+            debugWordLabel = new Label();
             deleteButton = new Label();
             enterButton = new Label();
             sixthWordPanel = new Panel();
@@ -82,6 +89,7 @@
             homeLayoutPanel.SuspendLayout();
             settingsPanel.SuspendLayout();
             matchPanel.SuspendLayout();
+            victoryPanel.SuspendLayout();
             sixthWordPanel.SuspendLayout();
             fifthWordPanel.SuspendLayout();
             fourthWordPanel.SuspendLayout();
@@ -249,6 +257,10 @@
             // 
             // matchPanel
             // 
+            matchPanel.Controls.Add(victoryPanel);
+            matchPanel.Controls.Add(debugColorLabel);
+            matchPanel.Controls.Add(errorLabel);
+            matchPanel.Controls.Add(debugWordLabel);
             matchPanel.Controls.Add(deleteButton);
             matchPanel.Controls.Add(enterButton);
             matchPanel.Controls.Add(sixthWordPanel);
@@ -263,11 +275,99 @@
             matchPanel.Size = new Size(882, 853);
             matchPanel.TabIndex = 7;
             // 
+            // victoryPanel
+            // 
+            victoryPanel.BackColor = Color.FromArgb(21, 21, 21);
+            victoryPanel.BorderStyle = BorderStyle.FixedSingle;
+            victoryPanel.Controls.Add(playAgainButton);
+            victoryPanel.Controls.Add(backButton);
+            victoryPanel.Controls.Add(resultLabel);
+            victoryPanel.Location = new Point(215, 245);
+            victoryPanel.Margin = new Padding(15, 5, 15, 5);
+            victoryPanel.Name = "victoryPanel";
+            victoryPanel.Size = new Size(445, 403);
+            victoryPanel.TabIndex = 14;
+            victoryPanel.Visible = false;
+            // 
+            // playAgainButton
+            // 
+            playAgainButton.BackColor = Color.FromArgb(31, 31, 31);
+            playAgainButton.Cursor = Cursors.Hand;
+            playAgainButton.Font = new Font("Bowlby One SC", 12F);
+            playAgainButton.ForeColor = Color.Lime;
+            playAgainButton.Location = new Point(224, 351);
+            playAgainButton.Margin = new Padding(15, 5, 5, 15);
+            playAgainButton.Name = "playAgainButton";
+            playAgainButton.Size = new Size(205, 35);
+            playAgainButton.TabIndex = 2;
+            playAgainButton.Text = "Gioca ancora";
+            playAgainButton.UseVisualStyleBackColor = false;
+            // 
+            // backButton
+            // 
+            backButton.BackColor = Color.FromArgb(31, 31, 31);
+            backButton.Cursor = Cursors.Hand;
+            backButton.Font = new Font("Bowlby One SC", 12F);
+            backButton.ForeColor = Color.FromArgb(192, 0, 192);
+            backButton.Location = new Point(15, 351);
+            backButton.Margin = new Padding(15, 5, 5, 15);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(205, 35);
+            backButton.TabIndex = 1;
+            backButton.Text = "Vai alla Home";
+            backButton.UseVisualStyleBackColor = false;
+            backButton.Click += backButton_Click;
+            // 
+            // resultLabel
+            // 
+            resultLabel.Font = new Font("Bowlby One SC", 24F);
+            resultLabel.Location = new Point(10, 28);
+            resultLabel.Margin = new Padding(10, 0, 10, 0);
+            resultLabel.Name = "resultLabel";
+            resultLabel.Size = new Size(423, 60);
+            resultLabel.TabIndex = 0;
+            resultLabel.Text = "RISULTATO!";
+            resultLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // debugColorLabel
+            // 
+            debugColorLabel.AutoSize = true;
+            debugColorLabel.ForeColor = Color.White;
+            debugColorLabel.Location = new Point(719, 739);
+            debugColorLabel.Name = "debugColorLabel";
+            debugColorLabel.Size = new Size(111, 20);
+            debugColorLabel.TabIndex = 13;
+            debugColorLabel.Text = "DEBUG COLORI";
+            debugColorLabel.Visible = false;
+            // 
+            // errorLabel
+            // 
+            errorLabel.Font = new Font("Bowlby One SC", 9F);
+            errorLabel.ForeColor = Color.DarkGray;
+            errorLabel.Location = new Point(200, 804);
+            errorLabel.Name = "errorLabel";
+            errorLabel.Size = new Size(475, 25);
+            errorLabel.TabIndex = 12;
+            errorLabel.Text = "Messaggio di Errore";
+            errorLabel.TextAlign = ContentAlignment.MiddleCenter;
+            errorLabel.Visible = false;
+            // 
+            // debugWordLabel
+            // 
+            debugWordLabel.AutoSize = true;
+            debugWordLabel.ForeColor = Color.White;
+            debugWordLabel.Location = new Point(718, 709);
+            debugWordLabel.Name = "debugWordLabel";
+            debugWordLabel.Size = new Size(115, 20);
+            debugWordLabel.TabIndex = 11;
+            debugWordLabel.Text = "DEBUG PAROLA";
+            debugWordLabel.Visible = false;
+            // 
             // deleteButton
             // 
             deleteButton.AccessibleRole = AccessibleRole.MenuBar;
             deleteButton.Font = new Font("Bowlby One SC", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            deleteButton.ForeColor = Color.Red;
+            deleteButton.ForeColor = Color.FromArgb(192, 0, 192);
             deleteButton.Location = new Point(440, 764);
             deleteButton.Name = "deleteButton";
             deleteButton.Size = new Size(235, 30);
@@ -935,6 +1035,8 @@
             homeLayoutPanel.ResumeLayout(false);
             settingsPanel.ResumeLayout(false);
             matchPanel.ResumeLayout(false);
+            matchPanel.PerformLayout();
+            victoryPanel.ResumeLayout(false);
             sixthWordPanel.ResumeLayout(false);
             sixthWordPanel.PerformLayout();
             fifthWordPanel.ResumeLayout(false);
@@ -1002,5 +1104,12 @@
         private Label title;
         private Label deleteButton;
         private Label enterButton;
+        private Label debugWordLabel;
+        private Label errorLabel;
+        private Label debugColorLabel;
+        private Panel victoryPanel;
+        private Label resultLabel;
+        private Button playAgainButton;
+        private Button backButton;
     }
 }
