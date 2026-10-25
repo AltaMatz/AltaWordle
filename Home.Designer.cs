@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
             settingsButton = new PictureBox();
             homeLayoutPanel = new TableLayoutPanel();
             statsButton = new Button();
@@ -35,6 +36,7 @@
             playerPlayButton = new Button();
             hostPlayButton = new Button();
             settingsPanel = new Panel();
+            homeButton = new Label();
             exitButton = new Label();
             langSelect = new ComboBox();
             matchPanel = new Panel();
@@ -85,6 +87,19 @@
             letter1_3 = new TextBox();
             homePanel = new Panel();
             title = new Label();
+            rulesPanel = new Panel();
+            rulesLayoutPanel = new TableLayoutPanel();
+            rulesCell = new Panel();
+            rulesLabel = new Label();
+            rulesTitle = new Label();
+            colorsCell = new Panel();
+            yellowBox = new TextBox();
+            yellowBoxLabel = new Label();
+            greenBoxLabel = new Label();
+            blackBoxLabel = new Label();
+            greenBox = new TextBox();
+            blackBox = new TextBox();
+            colorsTitle = new Label();
             ((System.ComponentModel.ISupportInitialize)settingsButton).BeginInit();
             homeLayoutPanel.SuspendLayout();
             settingsPanel.SuspendLayout();
@@ -97,6 +112,10 @@
             secondWordPanel.SuspendLayout();
             firstWordPanel.SuspendLayout();
             homePanel.SuspendLayout();
+            rulesPanel.SuspendLayout();
+            rulesLayoutPanel.SuspendLayout();
+            rulesCell.SuspendLayout();
+            colorsCell.SuspendLayout();
             SuspendLayout();
             // 
             // settingsButton
@@ -212,6 +231,7 @@
             // settingsPanel
             // 
             settingsPanel.BackColor = Color.FromArgb(10, 10, 10);
+            settingsPanel.Controls.Add(homeButton);
             settingsPanel.Controls.Add(exitButton);
             settingsPanel.Controls.Add(langSelect);
             settingsPanel.Location = new Point(0, 0);
@@ -220,6 +240,24 @@
             settingsPanel.Size = new Size(246, 853);
             settingsPanel.TabIndex = 6;
             settingsPanel.Visible = false;
+            // 
+            // homeButton
+            // 
+            homeButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            homeButton.Cursor = Cursors.Hand;
+            homeButton.Font = new Font("Bowlby One SC", 10F);
+            homeButton.ForeColor = Color.Lime;
+            homeButton.Location = new Point(40, 778);
+            homeButton.Margin = new Padding(40, 10, 40, 10);
+            homeButton.Name = "homeButton";
+            homeButton.Size = new Size(166, 35);
+            homeButton.TabIndex = 2;
+            homeButton.Text = "<- Home";
+            homeButton.TextAlign = ContentAlignment.MiddleLeft;
+            homeButton.Visible = false;
+            homeButton.Click += backButton_Click;
+            homeButton.MouseEnter += homeButton_MouseEnter;
+            homeButton.MouseLeave += homeButton_MouseLeave;
             // 
             // exitButton
             // 
@@ -302,6 +340,7 @@
             playAgainButton.TabIndex = 2;
             playAgainButton.Text = "Gioca ancora";
             playAgainButton.UseVisualStyleBackColor = false;
+            playAgainButton.Click += playAgainButton_Click;
             // 
             // backButton
             // 
@@ -999,6 +1038,7 @@
             homePanel.Name = "homePanel";
             homePanel.Size = new Size(882, 853);
             homePanel.TabIndex = 0;
+            homePanel.Click += backButton_Click;
             // 
             // title
             // 
@@ -1015,6 +1055,173 @@
             title.TextAlign = ContentAlignment.MiddleCenter;
             title.UseMnemonic = false;
             // 
+            // rulesPanel
+            // 
+            rulesPanel.Controls.Add(rulesLayoutPanel);
+            rulesPanel.Dock = DockStyle.Fill;
+            rulesPanel.Location = new Point(0, 0);
+            rulesPanel.Name = "rulesPanel";
+            rulesPanel.Size = new Size(882, 853);
+            rulesPanel.TabIndex = 6;
+            // 
+            // rulesLayoutPanel
+            // 
+            rulesLayoutPanel.ColumnCount = 2;
+            rulesLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
+            rulesLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
+            rulesLayoutPanel.Controls.Add(rulesCell, 0, 0);
+            rulesLayoutPanel.Controls.Add(colorsCell, 1, 0);
+            rulesLayoutPanel.Location = new Point(40, 185);
+            rulesLayoutPanel.Margin = new Padding(40, 0, 40, 40);
+            rulesLayoutPanel.Name = "rulesLayoutPanel";
+            rulesLayoutPanel.RowCount = 1;
+            rulesLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            rulesLayoutPanel.Size = new Size(793, 628);
+            rulesLayoutPanel.TabIndex = 0;
+            // 
+            // rulesCell
+            // 
+            rulesCell.Controls.Add(rulesLabel);
+            rulesCell.Controls.Add(rulesTitle);
+            rulesCell.Dock = DockStyle.Fill;
+            rulesCell.Location = new Point(3, 3);
+            rulesCell.Name = "rulesCell";
+            rulesCell.Size = new Size(469, 622);
+            rulesCell.TabIndex = 0;
+            // 
+            // rulesLabel
+            // 
+            rulesLabel.Font = new Font("Bowlby One SC", 12F);
+            rulesLabel.ForeColor = Color.White;
+            rulesLabel.Location = new Point(-3, 60);
+            rulesLabel.Margin = new Padding(0, 10, 0, 0);
+            rulesLabel.Name = "rulesLabel";
+            rulesLabel.Size = new Size(472, 562);
+            rulesLabel.TabIndex = 2;
+            rulesLabel.Text = resources.GetString("rulesLabel.Text");
+            // 
+            // rulesTitle
+            // 
+            rulesTitle.Font = new Font("Bowlby One SC", 20F);
+            rulesTitle.ForeColor = Color.Lime;
+            rulesTitle.Location = new Point(0, 0);
+            rulesTitle.Name = "rulesTitle";
+            rulesTitle.Size = new Size(469, 50);
+            rulesTitle.TabIndex = 1;
+            rulesTitle.Text = "REGOLAMENTO";
+            rulesTitle.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // colorsCell
+            // 
+            colorsCell.Controls.Add(yellowBox);
+            colorsCell.Controls.Add(yellowBoxLabel);
+            colorsCell.Controls.Add(greenBoxLabel);
+            colorsCell.Controls.Add(blackBoxLabel);
+            colorsCell.Controls.Add(greenBox);
+            colorsCell.Controls.Add(blackBox);
+            colorsCell.Controls.Add(colorsTitle);
+            colorsCell.Dock = DockStyle.Fill;
+            colorsCell.Location = new Point(478, 3);
+            colorsCell.Name = "colorsCell";
+            colorsCell.Size = new Size(312, 622);
+            colorsCell.TabIndex = 1;
+            // 
+            // yellowBox
+            // 
+            yellowBox.BackColor = Color.FromArgb(192, 0, 192);
+            yellowBox.BorderStyle = BorderStyle.FixedSingle;
+            yellowBox.CharacterCasing = CharacterCasing.Upper;
+            yellowBox.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
+            yellowBox.ForeColor = Color.White;
+            yellowBox.Location = new Point(5, 282);
+            yellowBox.Margin = new Padding(5, 40, 5, 40);
+            yellowBox.MaxLength = 2;
+            yellowBox.Name = "yellowBox";
+            yellowBox.Size = new Size(87, 87);
+            yellowBox.TabIndex = 6;
+            yellowBox.Text = "A";
+            yellowBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // yellowBoxLabel
+            // 
+            yellowBoxLabel.Font = new Font("Bowlby One SC", 8F);
+            yellowBoxLabel.ForeColor = Color.White;
+            yellowBoxLabel.Location = new Point(97, 282);
+            yellowBoxLabel.Margin = new Padding(0, 10, 0, 0);
+            yellowBoxLabel.Name = "yellowBoxLabel";
+            yellowBoxLabel.Size = new Size(205, 87);
+            yellowBoxLabel.TabIndex = 4;
+            yellowBoxLabel.Text = "LETTERA PRESENTE NELLA PAROLA, MA IN POSIZIONE SCORRETTA";
+            yellowBoxLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // greenBoxLabel
+            // 
+            greenBoxLabel.AutoEllipsis = true;
+            greenBoxLabel.Font = new Font("Bowlby One SC", 8F);
+            greenBoxLabel.ForeColor = Color.White;
+            greenBoxLabel.Location = new Point(97, 449);
+            greenBoxLabel.Margin = new Padding(0, 10, 0, 0);
+            greenBoxLabel.Name = "greenBoxLabel";
+            greenBoxLabel.Size = new Size(205, 87);
+            greenBoxLabel.TabIndex = 5;
+            greenBoxLabel.Text = "LETTERA POSIZIONATA CORRETTAMENTE NELLA PAROLA DA INDOVINARE";
+            greenBoxLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // blackBoxLabel
+            // 
+            blackBoxLabel.Font = new Font("Bowlby One SC", 8F);
+            blackBoxLabel.ForeColor = Color.White;
+            blackBoxLabel.Location = new Point(97, 115);
+            blackBoxLabel.Margin = new Padding(0, 10, 0, 0);
+            blackBoxLabel.Name = "blackBoxLabel";
+            blackBoxLabel.Size = new Size(205, 87);
+            blackBoxLabel.TabIndex = 3;
+            blackBoxLabel.Text = "LETTERA NON PRESENTE NELLA PAROLA DA INDOVINARE";
+            blackBoxLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // greenBox
+            // 
+            greenBox.BackColor = Color.Lime;
+            greenBox.BorderStyle = BorderStyle.FixedSingle;
+            greenBox.CharacterCasing = CharacterCasing.Upper;
+            greenBox.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
+            greenBox.ForeColor = Color.White;
+            greenBox.Location = new Point(5, 449);
+            greenBox.Margin = new Padding(5, 40, 5, 40);
+            greenBox.MaxLength = 2;
+            greenBox.Name = "greenBox";
+            greenBox.Size = new Size(87, 87);
+            greenBox.TabIndex = 4;
+            greenBox.Text = "A";
+            greenBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // blackBox
+            // 
+            blackBox.BackColor = Color.Black;
+            blackBox.BorderStyle = BorderStyle.FixedSingle;
+            blackBox.CharacterCasing = CharacterCasing.Upper;
+            blackBox.Font = new Font("Segoe UI Variable Display", 36F, FontStyle.Bold);
+            blackBox.ForeColor = Color.White;
+            blackBox.Location = new Point(5, 115);
+            blackBox.Margin = new Padding(5, 40, 5, 40);
+            blackBox.MaxLength = 2;
+            blackBox.Name = "blackBox";
+            blackBox.Size = new Size(87, 87);
+            blackBox.TabIndex = 3;
+            blackBox.Text = "A";
+            blackBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // colorsTitle
+            // 
+            colorsTitle.Font = new Font("Bowlby One SC", 20F);
+            colorsTitle.ForeColor = Color.FromArgb(192, 0, 192);
+            colorsTitle.Location = new Point(0, -3);
+            colorsTitle.Name = "colorsTitle";
+            colorsTitle.Size = new Size(312, 50);
+            colorsTitle.TabIndex = 2;
+            colorsTitle.Text = "COLORI";
+            colorsTitle.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Home
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1026,6 +1233,7 @@
             Controls.Add(title);
             Controls.Add(homePanel);
             Controls.Add(matchPanel);
+            Controls.Add(rulesPanel);
             ForeColor = SystemColors.ActiveCaptionText;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
@@ -1050,6 +1258,11 @@
             firstWordPanel.ResumeLayout(false);
             firstWordPanel.PerformLayout();
             homePanel.ResumeLayout(false);
+            rulesPanel.ResumeLayout(false);
+            rulesLayoutPanel.ResumeLayout(false);
+            rulesCell.ResumeLayout(false);
+            colorsCell.ResumeLayout(false);
+            colorsCell.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1111,5 +1324,20 @@
         private Label resultLabel;
         private Button playAgainButton;
         private Button backButton;
+        private Panel rulesPanel;
+        private TableLayoutPanel rulesLayoutPanel;
+        private Panel rulesCell;
+        private Label rulesLabel;
+        private Label rulesTitle;
+        private Panel colorsCell;
+        private Label colorsTitle;
+        private TextBox textBox1;
+        private TextBox greenBox;
+        private TextBox blackBox;
+        private Label yellowBoxLabel;
+        private Label greenBoxLabel;
+        private Label blackBoxLabel;
+        private TextBox yellowBox;
+        public Label homeButton;
     }
 }

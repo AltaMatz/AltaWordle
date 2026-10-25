@@ -117,4 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="rulesLabel.Text" xml:space="preserve">
+    <value>"AltaWordle" è un gioco che consiste nell'indovinare una parola da 5 lettere dopo un certo numero di tentativi:
+&gt; MODALITÀ FACILE (6 tentativi)
+&gt; MODALITÀ MEDIA (5 tentativi)
+&gt; MODALITÀ DIFFICILE (4 tentativi)
+
+È possibile giocare sia come ospiti sia loggandosi con il proprio profilo
+
+Le statistiche presenti nella HomePage rappresentano la media tra tutte le partite giocate, mentre quelle presenti nell'area personale di ciascun giocatore riguardano quelle del giocatore stesso
+
+LINGUE: Italiano, Inglese, Francese</value>
+  </data>
 </root>
