@@ -9,8 +9,14 @@ namespace AltaWordle
 {
     public class WordManager
     {
-        public List<string> guessWords = new List<string>();
-        public string percorso = "";
+        public List<string> guessWords;
+        public string percorso;
+
+        public WordManager ()
+        {
+            guessWords = new List<string>();
+            percorso = "";
+        }
 
         public int LoadWords(string language)
         {

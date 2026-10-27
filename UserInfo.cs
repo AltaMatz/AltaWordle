@@ -18,5 +18,19 @@ namespace AltaWordle
         public int fourthTry { get; set; }
         public int fifthTry { get; set; }
         public int sixthTry { get; set; }
+
+        public UserInfo ()
+        {
+            username = "";
+            password = "";
+            victories = 0;
+            defeats = 0;
+            firstTry = 0;
+            secondTry = 0;
+            thirdTry = 0;
+            fourthTry = 0;
+            fifthTry = 0;
+            sixthTry = 0;
+        }
     }
 }
