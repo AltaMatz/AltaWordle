@@ -100,6 +100,26 @@
             greenBox = new TextBox();
             blackBox = new TextBox();
             colorsTitle = new Label();
+            loginPanel = new Panel();
+            errorDataLabel = new Label();
+            registerButton = new Label();
+            altHostPlayButton = new Label();
+            registerWindow = new Panel();
+            repeatPasswordLabel = new Label();
+            repeatPasswordTextBox = new TextBox();
+            enterRegisterDataButton = new Label();
+            passwordLabel = new Label();
+            usernameLabel = new Label();
+            passwordTextBox = new TextBox();
+            registerTitle = new Label();
+            usernameTextBox = new TextBox();
+            loginWindow = new Panel();
+            enterLoginDataButton = new Label();
+            passwordLoginLabel = new Label();
+            passwordLoginTextBox = new TextBox();
+            usernameLoginLabel = new Label();
+            usernameLoginTextBox = new TextBox();
+            loginLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)settingsButton).BeginInit();
             homeLayoutPanel.SuspendLayout();
             settingsPanel.SuspendLayout();
@@ -116,6 +136,9 @@
             rulesLayoutPanel.SuspendLayout();
             rulesCell.SuspendLayout();
             colorsCell.SuspendLayout();
+            loginPanel.SuspendLayout();
+            registerWindow.SuspendLayout();
+            loginWindow.SuspendLayout();
             SuspendLayout();
             // 
             // settingsButton
@@ -1222,6 +1245,256 @@
             colorsTitle.Text = "COLORI";
             colorsTitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // loginPanel
+            // 
+            loginPanel.Controls.Add(errorDataLabel);
+            loginPanel.Controls.Add(registerButton);
+            loginPanel.Controls.Add(altHostPlayButton);
+            loginPanel.Controls.Add(registerWindow);
+            loginPanel.Controls.Add(loginWindow);
+            loginPanel.Dock = DockStyle.Fill;
+            loginPanel.Location = new Point(0, 0);
+            loginPanel.Name = "loginPanel";
+            loginPanel.Size = new Size(882, 853);
+            loginPanel.TabIndex = 6;
+            // 
+            // errorDataLabel
+            // 
+            errorDataLabel.Cursor = Cursors.Hand;
+            errorDataLabel.Font = new Font("Bowlby One SC", 12F);
+            errorDataLabel.ForeColor = Color.Gray;
+            errorDataLabel.Location = new Point(150, 203);
+            errorDataLabel.Margin = new Padding(250, 5, 250, 5);
+            errorDataLabel.Name = "errorDataLabel";
+            errorDataLabel.Size = new Size(582, 30);
+            errorDataLabel.TabIndex = 3;
+            errorDataLabel.Text = "MESSAGGIO DI ERRORE AUTENTICAZIONE";
+            errorDataLabel.TextAlign = ContentAlignment.MiddleCenter;
+            errorDataLabel.Visible = false;
+            // 
+            // registerButton
+            // 
+            registerButton.Cursor = Cursors.Hand;
+            registerButton.Font = new Font("Bowlby One SC", 12F);
+            registerButton.ForeColor = Color.FromArgb(192, 0, 192);
+            registerButton.Location = new Point(259, 729);
+            registerButton.Margin = new Padding(250, 5, 250, 5);
+            registerButton.Name = "registerButton";
+            registerButton.Size = new Size(351, 30);
+            registerButton.TabIndex = 2;
+            registerButton.Text = "REGISTRATI";
+            registerButton.TextAlign = ContentAlignment.MiddleCenter;
+            registerButton.Click += registerButton_Click;
+            registerButton.MouseEnter += registerButton_MouseEnter;
+            registerButton.MouseLeave += registerButton_MouseLeave;
+            // 
+            // altHostPlayButton
+            // 
+            altHostPlayButton.Cursor = Cursors.Hand;
+            altHostPlayButton.Font = new Font("Bowlby One SC", 12F);
+            altHostPlayButton.ForeColor = Color.Lime;
+            altHostPlayButton.Location = new Point(259, 688);
+            altHostPlayButton.Margin = new Padding(250, 5, 250, 5);
+            altHostPlayButton.Name = "altHostPlayButton";
+            altHostPlayButton.Size = new Size(351, 30);
+            altHostPlayButton.TabIndex = 1;
+            altHostPlayButton.Text = "GIOCA SUBITO!";
+            altHostPlayButton.TextAlign = ContentAlignment.MiddleCenter;
+            altHostPlayButton.Click += hostPlayButton_Click;
+            altHostPlayButton.MouseEnter += altHostPlayButton_MouseEnter;
+            altHostPlayButton.MouseLeave += altHostPlayButton_MouseLeave;
+            // 
+            // registerWindow
+            // 
+            registerWindow.BackColor = Color.FromArgb(10, 10, 10);
+            registerWindow.BorderStyle = BorderStyle.FixedSingle;
+            registerWindow.Controls.Add(repeatPasswordLabel);
+            registerWindow.Controls.Add(repeatPasswordTextBox);
+            registerWindow.Controls.Add(enterRegisterDataButton);
+            registerWindow.Controls.Add(passwordLabel);
+            registerWindow.Controls.Add(usernameLabel);
+            registerWindow.Controls.Add(passwordTextBox);
+            registerWindow.Controls.Add(registerTitle);
+            registerWindow.Controls.Add(usernameTextBox);
+            registerWindow.Location = new Point(150, 250);
+            registerWindow.Margin = new Padding(150, 100, 150, 175);
+            registerWindow.Name = "registerWindow";
+            registerWindow.Size = new Size(582, 428);
+            registerWindow.TabIndex = 1;
+            registerWindow.Visible = false;
+            // 
+            // repeatPasswordLabel
+            // 
+            repeatPasswordLabel.Font = new Font("Bowlby One SC", 18F);
+            repeatPasswordLabel.ForeColor = Color.White;
+            repeatPasswordLabel.Location = new Point(98, 270);
+            repeatPasswordLabel.Name = "repeatPasswordLabel";
+            repeatPasswordLabel.Size = new Size(380, 38);
+            repeatPasswordLabel.TabIndex = 6;
+            repeatPasswordLabel.Text = "Ripeti password";
+            // 
+            // repeatPasswordTextBox
+            // 
+            repeatPasswordTextBox.Font = new Font("Impact", 20F);
+            repeatPasswordTextBox.Location = new Point(98, 309);
+            repeatPasswordTextBox.Margin = new Padding(100, 20, 100, 20);
+            repeatPasswordTextBox.MaxLength = 20;
+            repeatPasswordTextBox.Name = "repeatPasswordTextBox";
+            repeatPasswordTextBox.Size = new Size(380, 48);
+            repeatPasswordTextBox.TabIndex = 5;
+            // 
+            // enterRegisterDataButton
+            // 
+            enterRegisterDataButton.BackColor = Color.FromArgb(10, 10, 10);
+            enterRegisterDataButton.Cursor = Cursors.Hand;
+            enterRegisterDataButton.Font = new Font("Bowlby One SC", 12F);
+            enterRegisterDataButton.ForeColor = Color.White;
+            enterRegisterDataButton.Location = new Point(98, 372);
+            enterRegisterDataButton.Margin = new Padding(250, 5, 250, 5);
+            enterRegisterDataButton.Name = "enterRegisterDataButton";
+            enterRegisterDataButton.Size = new Size(380, 30);
+            enterRegisterDataButton.TabIndex = 3;
+            enterRegisterDataButton.Text = "CONFERMA DATI INSERITI";
+            enterRegisterDataButton.TextAlign = ContentAlignment.MiddleCenter;
+            enterRegisterDataButton.Click += enterRegisterDataButton_Click;
+            enterRegisterDataButton.MouseEnter += enterDataButton_MouseEnter;
+            enterRegisterDataButton.MouseLeave += enterDataButton_MouseLeave;
+            // 
+            // passwordLabel
+            // 
+            passwordLabel.Font = new Font("Bowlby One SC", 18F);
+            passwordLabel.ForeColor = Color.White;
+            passwordLabel.Location = new Point(98, 182);
+            passwordLabel.Name = "passwordLabel";
+            passwordLabel.Size = new Size(380, 38);
+            passwordLabel.TabIndex = 4;
+            passwordLabel.Text = "Crea password";
+            // 
+            // usernameLabel
+            // 
+            usernameLabel.Font = new Font("Bowlby One SC", 18F);
+            usernameLabel.ForeColor = Color.White;
+            usernameLabel.Location = new Point(98, 91);
+            usernameLabel.Name = "usernameLabel";
+            usernameLabel.Size = new Size(380, 38);
+            usernameLabel.TabIndex = 3;
+            usernameLabel.Text = "Username";
+            // 
+            // passwordTextBox
+            // 
+            passwordTextBox.Font = new Font("Impact", 20F);
+            passwordTextBox.Location = new Point(98, 221);
+            passwordTextBox.Margin = new Padding(100, 20, 100, 20);
+            passwordTextBox.MaxLength = 20;
+            passwordTextBox.Name = "passwordTextBox";
+            passwordTextBox.Size = new Size(380, 48);
+            passwordTextBox.TabIndex = 2;
+            // 
+            // registerTitle
+            // 
+            registerTitle.Font = new Font("Bowlby One SC", 26F);
+            registerTitle.ForeColor = Color.White;
+            registerTitle.Location = new Point(3, 15);
+            registerTitle.Name = "registerTitle";
+            registerTitle.Size = new Size(574, 68);
+            registerTitle.TabIndex = 1;
+            registerTitle.Text = "REGISTRAZIONE";
+            registerTitle.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // usernameTextBox
+            // 
+            usernameTextBox.Font = new Font("Impact", 20F);
+            usernameTextBox.Location = new Point(98, 130);
+            usernameTextBox.Margin = new Padding(100, 20, 100, 20);
+            usernameTextBox.MaxLength = 15;
+            usernameTextBox.Name = "usernameTextBox";
+            usernameTextBox.Size = new Size(380, 48);
+            usernameTextBox.TabIndex = 0;
+            // 
+            // loginWindow
+            // 
+            loginWindow.BackColor = Color.FromArgb(10, 10, 10);
+            loginWindow.BorderStyle = BorderStyle.FixedSingle;
+            loginWindow.Controls.Add(enterLoginDataButton);
+            loginWindow.Controls.Add(passwordLoginLabel);
+            loginWindow.Controls.Add(passwordLoginTextBox);
+            loginWindow.Controls.Add(usernameLoginLabel);
+            loginWindow.Controls.Add(usernameLoginTextBox);
+            loginWindow.Controls.Add(loginLabel);
+            loginWindow.Location = new Point(150, 250);
+            loginWindow.Margin = new Padding(150, 100, 150, 175);
+            loginWindow.Name = "loginWindow";
+            loginWindow.Size = new Size(582, 428);
+            loginWindow.TabIndex = 0;
+            // 
+            // enterLoginDataButton
+            // 
+            enterLoginDataButton.BackColor = Color.FromArgb(10, 10, 10);
+            enterLoginDataButton.Cursor = Cursors.Hand;
+            enterLoginDataButton.Font = new Font("Bowlby One SC", 12F);
+            enterLoginDataButton.ForeColor = Color.White;
+            enterLoginDataButton.Location = new Point(98, 367);
+            enterLoginDataButton.Margin = new Padding(250, 5, 250, 5);
+            enterLoginDataButton.Name = "enterLoginDataButton";
+            enterLoginDataButton.Size = new Size(380, 30);
+            enterLoginDataButton.TabIndex = 4;
+            enterLoginDataButton.Text = "CONFERMA DATI INSERITI";
+            enterLoginDataButton.TextAlign = ContentAlignment.MiddleCenter;
+            enterLoginDataButton.Click += enterLoginDataButton_Click;
+            enterLoginDataButton.MouseEnter += enterLoginDataButton_MouseEnter;
+            enterLoginDataButton.MouseLeave += enterLoginDataButton_MouseLeave;
+            // 
+            // passwordLoginLabel
+            // 
+            passwordLoginLabel.Font = new Font("Bowlby One SC", 18F);
+            passwordLoginLabel.ForeColor = Color.White;
+            passwordLoginLabel.Location = new Point(98, 233);
+            passwordLoginLabel.Name = "passwordLoginLabel";
+            passwordLoginLabel.Size = new Size(380, 38);
+            passwordLoginLabel.TabIndex = 11;
+            passwordLoginLabel.Text = "Password";
+            // 
+            // passwordLoginTextBox
+            // 
+            passwordLoginTextBox.Font = new Font("Impact", 20F);
+            passwordLoginTextBox.Location = new Point(98, 272);
+            passwordLoginTextBox.Margin = new Padding(100, 20, 100, 20);
+            passwordLoginTextBox.MaxLength = 20;
+            passwordLoginTextBox.Name = "passwordLoginTextBox";
+            passwordLoginTextBox.Size = new Size(380, 48);
+            passwordLoginTextBox.TabIndex = 10;
+            // 
+            // usernameLoginLabel
+            // 
+            usernameLoginLabel.Font = new Font("Bowlby One SC", 18F);
+            usernameLoginLabel.ForeColor = Color.White;
+            usernameLoginLabel.Location = new Point(98, 130);
+            usernameLoginLabel.Name = "usernameLoginLabel";
+            usernameLoginLabel.Size = new Size(380, 38);
+            usernameLoginLabel.TabIndex = 9;
+            usernameLoginLabel.Text = "Username";
+            // 
+            // usernameLoginTextBox
+            // 
+            usernameLoginTextBox.Font = new Font("Impact", 20F);
+            usernameLoginTextBox.Location = new Point(98, 169);
+            usernameLoginTextBox.Margin = new Padding(100, 20, 100, 20);
+            usernameLoginTextBox.MaxLength = 15;
+            usernameLoginTextBox.Name = "usernameLoginTextBox";
+            usernameLoginTextBox.Size = new Size(380, 48);
+            usernameLoginTextBox.TabIndex = 8;
+            // 
+            // loginLabel
+            // 
+            loginLabel.Font = new Font("Bowlby One SC", 26F);
+            loginLabel.ForeColor = Color.White;
+            loginLabel.Location = new Point(7, 42);
+            loginLabel.Name = "loginLabel";
+            loginLabel.Size = new Size(574, 68);
+            loginLabel.TabIndex = 7;
+            loginLabel.Text = "LOGIN";
+            loginLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Home
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1232,6 +1505,7 @@
             Controls.Add(settingsPanel);
             Controls.Add(title);
             Controls.Add(homePanel);
+            Controls.Add(loginPanel);
             Controls.Add(matchPanel);
             Controls.Add(rulesPanel);
             ForeColor = SystemColors.ActiveCaptionText;
@@ -1263,6 +1537,11 @@
             rulesCell.ResumeLayout(false);
             colorsCell.ResumeLayout(false);
             colorsCell.PerformLayout();
+            loginPanel.ResumeLayout(false);
+            registerWindow.ResumeLayout(false);
+            registerWindow.PerformLayout();
+            loginWindow.ResumeLayout(false);
+            loginWindow.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1339,5 +1618,25 @@
         private Label blackBoxLabel;
         private TextBox yellowBox;
         public Label homeButton;
+        private Panel loginPanel;
+        private Panel loginWindow;
+        private Label altHostPlayButton;
+        private Label registerButton;
+        private Panel registerWindow;
+        private TextBox usernameTextBox;
+        private TextBox passwordTextBox;
+        private Label registerTitle;
+        private Label passwordLabel;
+        private Label usernameLabel;
+        private Label repeatPasswordLabel;
+        private TextBox repeatPasswordTextBox;
+        private Label passwordLoginLabel;
+        private TextBox passwordLoginTextBox;
+        private Label usernameLoginLabel;
+        private TextBox usernameLoginTextBox;
+        private Label loginLabel;
+        private Label enterRegisterDataButton;
+        private Label enterLoginDataButton;
+        private Label errorDataLabel;
     }
 }

@@ -4,6 +4,8 @@ using System.Drawing.Text;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Text.Json; // per serializzazione / deserializzazione .json
+using System.Linq;      // query per comparare campi degli oggetti nel file .json
 namespace AltaWordle
 {
     public partial class Home : Form
@@ -13,52 +15,12 @@ namespace AltaWordle
         private string language = "Italiano (IT)";
         private string insertedText = "";
         public string guessWord = "";
+        List<UserInfo> userList;
 
         public Home()
         {
             InitializeComponent();
             langSelect.SelectedIndex = 0;
-        }
-
-        // CLASSE WORDMANAGER
-        public class WordManager
-        {
-            public List<string> guessWords = new List<string>();
-            public string percorso = "";
-
-            public int LoadWords(string language)
-            {
-                if (language == "Italiano (IT)")
-                {
-                    guessWords = new List<string>(File.ReadAllLines("WordList/guess_words.txt")); 
-                    percorso = "WordList/valid_words.txt";
-                    return 1;
-                }
-                else if (language == "Inglese (EN)")
-                {
-                    guessWords = new List<string>(File.ReadAllLines("WordList/guess_words_EN.txt"));
-                    percorso = "WordList/valid_words_EN.txt";
-                    return 2;
-                }
-                else if (language == "Francese (FR)")
-                {
-                    guessWords = new List<string>(File.ReadAllLines("WordList/guess_words_FR.txt"));
-                    percorso = "WordList/valid_words_FR.txt";
-                    return 3;
-                }
-                return 0;
-            }
-
-            public string GetGuessWord()
-            {
-                if (guessWords.Count == 0)
-                {
-                    return "PROVA";     // Se la lista è vuota, c'è stato qualche errore e restituisco la parola PROVA
-                }
-                Random random = new Random();
-                int indice = random.Next(0, guessWords.Count);  // INTERVALLO: Da 0 a (N parole - 1)
-                return guessWords[indice].ToUpper();     // In maiuscolo per evitare scocciature
-            }
         }
 
         private void langSelect_SelectedIndexChanged(object sender, EventArgs e) // Controllare in qualsiasi momento il cambio di lingua e inserire nelle liste le parole dei .txt corrispondenti
@@ -135,11 +97,13 @@ namespace AltaWordle
             if (settingsPanel.Visible == false)  // Quando apro il menu, ridimensiono e sposto gli altri elementi e coloro l'icona settings
             {
                 settingsPanel.Visible = true;
+                homeLayoutPanel.Visible = false; title.Visible = false;
                 settingsButton.BackColor = Color.FromArgb(10, 10, 10);
                 homeLayoutPanel.Location = new Point(268, 204);
                 homeLayoutPanel.Size = new Size(565, 600);
                 title.Location = new Point(268, 25);
                 title.Size = new Size(565, 113);
+                homeLayoutPanel.Visible = true; title.Visible = true;
                 firstWordPanel.Location = new Point(307, 148);
                 secondWordPanel.Location = new Point(307, 250);
                 thirdWordPanel.Location = new Point(307, 352);
@@ -150,15 +114,22 @@ namespace AltaWordle
                 deleteButton.Location = new Point(547, 764);
                 errorLabel.Location = new Point(307, 804);
                 victoryPanel.Location = new Point(322, 245);
+                loginWindow.Location = new Point(270, 250);
+                altHostPlayButton.Location = new Point(379, 688);
+                registerButton.Location = new Point(379, 728);
+                registerWindow.Location = new Point(270, 250);
+                errorDataLabel.Location = new Point(270, 203);
             }
             else                                // Quando chiudo il menu, ripristino le dimensioni e i colori originali
             {
                 settingsPanel.Visible = false;
                 settingsButton.BackColor = BackColor;
+                homeLayoutPanel.Visible = false; title.Visible = false;
                 homeLayoutPanel.Location = new Point(49, 204);
                 homeLayoutPanel.Size = new Size(784, 600);
                 title.Location = new Point(49, 25);
                 title.Size = new Size(784, 113);
+                homeLayoutPanel.Visible = true; title.Visible = true;
                 firstWordPanel.Location = new Point(200, 148);
                 secondWordPanel.Location = new Point(200, 250);
                 thirdWordPanel.Location = new Point(200, 352);
@@ -169,6 +140,11 @@ namespace AltaWordle
                 deleteButton.Location = new Point(440, 764);
                 errorLabel.Location = new Point(200, 804);
                 victoryPanel.Location = new Point(215, 245);
+                loginWindow.Location = new Point(150, 250);
+                altHostPlayButton.Location = new Point(259, 688);
+                registerButton.Location = new Point(259, 728);
+                registerWindow.Location = new Point(150, 250);
+                errorDataLabel.Location = new Point(150, 203);
             }
         }
 
@@ -186,6 +162,11 @@ namespace AltaWordle
 
         private void playerPlayButton_Click(object sender, EventArgs e) // Partita come giocatore loggato
         {
+            loginPanel.BringToFront();
+            title.BringToFront();
+            settingsPanel.BringToFront();
+            settingsButton.BringToFront();
+            homeButton.Visible = true;
             // Schermata di Login con nome utente e password e tasto per la registrazione (con controllo di non ripetizione nome utente)
             // Mostrare le difficoltà giocabili, le statistiche del giocatore e tutte le info modificabili sul profilo
         }
@@ -778,7 +759,7 @@ namespace AltaWordle
             }
         }
 
-        // FUNZIONI PULSANTI "CONFERMA" E "CANCELLA"
+        // FUNZIONI PULSANTI "CONFERMA" E "CANCELLA" ED EFFETTI "MOUSE ENTER" E "MOUSE LEAVE"
         private void enterButton_MouseEnter(object sender, EventArgs e)
         {
             enterButton.BackColor = Color.FromArgb(10, 10, 10);
@@ -797,6 +778,46 @@ namespace AltaWordle
         private void deleteButton_MouseLeave(object sender, EventArgs e)
         {
             deleteButton.BackColor = Color.FromArgb(31, 31, 31);
+        }
+
+        private void altHostPlayButton_MouseEnter(object sender, EventArgs e)
+        {
+            altHostPlayButton.BackColor = Color.FromArgb(10, 10, 10);
+        }
+
+        private void altHostPlayButton_MouseLeave(object sender, EventArgs e)
+        {
+            altHostPlayButton.BackColor = Color.FromArgb(31, 31, 31);
+        }
+
+        private void registerButton_MouseEnter(object sender, EventArgs e)
+        {
+            registerButton.BackColor = Color.FromArgb(10, 10, 10);
+        }
+
+        private void registerButton_MouseLeave(object sender, EventArgs e)
+        {
+            registerButton.BackColor = Color.FromArgb(31, 31, 31);
+        }
+
+        private void enterDataButton_MouseEnter(object sender, EventArgs e)
+        {
+            enterRegisterDataButton.BackColor = Color.FromArgb(0, 255, 0);
+        }
+
+        private void enterDataButton_MouseLeave(object sender, EventArgs e)
+        {
+            enterRegisterDataButton.BackColor = Color.FromArgb(10, 10, 10);
+        }
+
+        private void enterLoginDataButton_MouseEnter(object sender, EventArgs e)
+        {
+            enterLoginDataButton.BackColor = Color.FromArgb(0, 255, 0);
+        }
+
+        private void enterLoginDataButton_MouseLeave(object sender, EventArgs e)
+        {
+            enterLoginDataButton.BackColor = Color.FromArgb(10, 10, 10);
         }
 
         private void enterButton_Click(object sender, EventArgs e)
@@ -908,7 +929,7 @@ namespace AltaWordle
         private bool validation(string word)
         {
             errorLabel.Visible = false;
-            foreach (string validWord in File.ReadLines("WordList/valid_words.txt"))
+            foreach (string validWord in File.ReadLines(wordManager.percorso))
             {
                 if (word == validWord)
                 {
@@ -1598,6 +1619,141 @@ namespace AltaWordle
             victoryPanel.Visible = false;
             wordManager.LoadWords(language);
             guessWord = wordManager.GetGuessWord();
+        }
+
+        private void registerButton_Click(object sender, EventArgs e)
+        {
+            if (registerButton.Text == "REGISTRATI" || registerButton.Text == "REGISTER" || registerButton.Text == "INSCRIVEZ-VOUS")
+            {
+                registerWindow.Visible = true;
+                registerButton.Text = "LOGIN";
+            }
+            else
+            {
+                registerWindow.Visible = false;
+                if (language == "Italiano (IT)")
+                {
+                    registerButton.Text = "REGISTRATI";
+                }
+                else if (language == "Inglese (EN)")
+                {
+                    registerButton.Text = "REGISTER";
+                }
+                else
+                {
+                    registerButton.Text = "INSCRIVEZ-VOUS";
+                }
+            }
+        }
+
+        //FUNZIONI LOGIN E REGISTRAZIONE
+        private void readJson()
+        {
+            string percorso = "users.json";
+            if (File.Exists(percorso))
+            {
+                string json = File.ReadAllText(percorso);
+                if (string.IsNullOrWhiteSpace(json))
+                {
+                    userList = new List<UserInfo>();
+                }
+                else
+                {
+                    userList = JsonSerializer.Deserialize<List<UserInfo>>(json) ?? new List<UserInfo>();    // deserializzazione del .json in oggetti
+                }
+            }
+            else
+            {
+                userList = new List<UserInfo>();
+            }
+        }
+
+        private void enterRegisterDataButton_Click(object sender, EventArgs e)
+        {
+            readJson();
+            if (usernameTextBox.Text.Length > 0)
+            {
+                string insertedUsername = usernameTextBox.Text;
+                string insertedPassword = passwordTextBox.Text;
+                UserInfo userFound = userList.FirstOrDefault(u => u.username == insertedUsername);  // cerco tramite query una corrispondenza tra il nome utente inserito e tutti gli username registrati
+                if (userFound == null)
+                {    // se il valore è nullo, il nome utente può essere registrato perché non è stato ancora utilizzato da nessuno
+                    if (insertedPassword.Length > 0)
+                    {
+                        if (insertedPassword == repeatPasswordTextBox.Text)
+                        {
+                            errorDataLabel.Visible = false;
+                            var newUser = new UserInfo
+                            {
+                                username = insertedUsername,
+                                password = insertedPassword,
+                                victories = 0,
+                                defeats = 0,
+                                firstTry = 0,
+                                secondTry = 0,
+                                thirdTry = 0,
+                                fourthTry = 0,
+                                fifthTry = 0,
+                                sixthTry = 0
+                            };
+                            userList.Add(newUser);
+                            var options = new JsonSerializerOptions { WriteIndented = true };   // formattazione .json in maniera leggibile
+                            string newJson = JsonSerializer.Serialize(userList, options);       // serializzazione lista aggiornata con utente aggiunto
+                            File.WriteAllText("users.json", newJson);
+                        }
+                        else
+                        {
+                            errorDataLabel.Visible = true;
+                            errorDataLabel.Text = "ERRORE: Le password non coincidono";
+                        }
+                    }
+                    else
+                    {
+                        errorDataLabel.Visible = true;
+                        errorDataLabel.Text = "ERRORE: Password non inserita";
+                    }
+                }
+                else
+                {
+                    errorDataLabel.Visible = true;
+                    errorDataLabel.Text = "ERRORE: Utente già registrato";
+                }
+            }
+            else
+            {
+                errorDataLabel.Visible = true;
+                errorDataLabel.Text = "ERRORE: Nome utente non inserito";
+            }
+        }
+
+        private void enterLoginDataButton_Click(object sender, EventArgs e)
+        {
+            readJson();
+            if (usernameLoginTextBox.Text.Length > 0) {
+                string insertedUsername = usernameLoginTextBox.Text;
+                string insertedPassword = passwordLoginTextBox.Text;
+                UserInfo userFound = userList.FirstOrDefault(u => u.username == insertedUsername);
+                if (userFound != null) {
+                    if (insertedPassword.Length > 0) {
+                        if (userFound.password == insertedPassword) {
+                            errorDataLabel.Visible = false;
+                            // LOGIN RIUSCITO
+                        } else {
+                            errorDataLabel.Visible = true;
+                            errorDataLabel.Text = "ERRORE: Password errata";
+                        }
+                    } else {
+                        errorDataLabel.Visible = true;
+                        errorDataLabel.Text = "ERRORE: Password non inserita";
+                    }
+                } else {
+                    errorDataLabel.Visible = true;
+                    errorDataLabel.Text = "ERRORE: Utente non registrato";
+                }
+            } else {
+                errorDataLabel.Visible = true;
+                errorDataLabel.Text = "ERRORE: Nome utente non inserito";
+            }
         }
     }
 }
