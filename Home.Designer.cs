@@ -41,6 +41,21 @@
             langSelect = new ComboBox();
             matchPanel = new Panel();
             victoryPanel = new Panel();
+            sixthTryLabel = new Label();
+            fifthTryLabel = new Label();
+            fourthTryLabel = new Label();
+            thirdTryLabel = new Label();
+            secondTryLabel = new Label();
+            firstTryLabel = new Label();
+            triesLabel = new Label();
+            sixthTryProgressBar = new ProgressBar();
+            fifthTryProgressBar = new ProgressBar();
+            fourthTryProgressBar = new ProgressBar();
+            thirdTryProgressBar = new ProgressBar();
+            secondTryProgressBar = new ProgressBar();
+            firstTryProgressBar = new ProgressBar();
+            defeatsLabel = new Label();
+            victoriesLabel = new Label();
             playAgainButton = new Button();
             backButton = new Button();
             resultLabel = new Label();
@@ -120,6 +135,27 @@
             usernameLoginLabel = new Label();
             usernameLoginTextBox = new TextBox();
             loginLabel = new Label();
+            statsPanel = new Panel();
+            statsTitle = new Label();
+            panel1 = new Panel();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            label7 = new Label();
+            progressBar1 = new ProgressBar();
+            progressBar2 = new ProgressBar();
+            progressBar3 = new ProgressBar();
+            progressBar4 = new ProgressBar();
+            progressBar5 = new ProgressBar();
+            progressBar6 = new ProgressBar();
+            label8 = new Label();
+            label9 = new Label();
+            button1 = new Button();
+            button2 = new Button();
+            label10 = new Label();
             ((System.ComponentModel.ISupportInitialize)settingsButton).BeginInit();
             homeLayoutPanel.SuspendLayout();
             settingsPanel.SuspendLayout();
@@ -139,6 +175,8 @@
             loginPanel.SuspendLayout();
             registerWindow.SuspendLayout();
             loginWindow.SuspendLayout();
+            statsPanel.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // settingsButton
@@ -340,6 +378,21 @@
             // 
             victoryPanel.BackColor = Color.FromArgb(21, 21, 21);
             victoryPanel.BorderStyle = BorderStyle.FixedSingle;
+            victoryPanel.Controls.Add(sixthTryLabel);
+            victoryPanel.Controls.Add(fifthTryLabel);
+            victoryPanel.Controls.Add(fourthTryLabel);
+            victoryPanel.Controls.Add(thirdTryLabel);
+            victoryPanel.Controls.Add(secondTryLabel);
+            victoryPanel.Controls.Add(firstTryLabel);
+            victoryPanel.Controls.Add(triesLabel);
+            victoryPanel.Controls.Add(sixthTryProgressBar);
+            victoryPanel.Controls.Add(fifthTryProgressBar);
+            victoryPanel.Controls.Add(fourthTryProgressBar);
+            victoryPanel.Controls.Add(thirdTryProgressBar);
+            victoryPanel.Controls.Add(secondTryProgressBar);
+            victoryPanel.Controls.Add(firstTryProgressBar);
+            victoryPanel.Controls.Add(defeatsLabel);
+            victoryPanel.Controls.Add(victoriesLabel);
             victoryPanel.Controls.Add(playAgainButton);
             victoryPanel.Controls.Add(backButton);
             victoryPanel.Controls.Add(resultLabel);
@@ -349,6 +402,177 @@
             victoryPanel.Size = new Size(445, 403);
             victoryPanel.TabIndex = 14;
             victoryPanel.Visible = false;
+            // 
+            // sixthTryLabel
+            // 
+            sixthTryLabel.Font = new Font("Bowlby One SC", 8F);
+            sixthTryLabel.ForeColor = SystemColors.WindowFrame;
+            sixthTryLabel.Location = new Point(19, 312);
+            sixthTryLabel.Name = "sixthTryLabel";
+            sixthTryLabel.Size = new Size(59, 20);
+            sixthTryLabel.TabIndex = 17;
+            sixthTryLabel.Text = "n - 6°";
+            sixthTryLabel.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // fifthTryLabel
+            // 
+            fifthTryLabel.Font = new Font("Bowlby One SC", 8F);
+            fifthTryLabel.ForeColor = SystemColors.WindowFrame;
+            fifthTryLabel.Location = new Point(19, 282);
+            fifthTryLabel.Name = "fifthTryLabel";
+            fifthTryLabel.Size = new Size(59, 20);
+            fifthTryLabel.TabIndex = 16;
+            fifthTryLabel.Text = "n - 5°";
+            fifthTryLabel.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // fourthTryLabel
+            // 
+            fourthTryLabel.Font = new Font("Bowlby One SC", 8F);
+            fourthTryLabel.ForeColor = SystemColors.WindowFrame;
+            fourthTryLabel.Location = new Point(19, 252);
+            fourthTryLabel.Name = "fourthTryLabel";
+            fourthTryLabel.Size = new Size(59, 20);
+            fourthTryLabel.TabIndex = 16;
+            fourthTryLabel.Text = "n - 4°";
+            fourthTryLabel.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // thirdTryLabel
+            // 
+            thirdTryLabel.Font = new Font("Bowlby One SC", 8F);
+            thirdTryLabel.ForeColor = SystemColors.WindowFrame;
+            thirdTryLabel.Location = new Point(19, 222);
+            thirdTryLabel.Name = "thirdTryLabel";
+            thirdTryLabel.Size = new Size(59, 20);
+            thirdTryLabel.TabIndex = 15;
+            thirdTryLabel.Text = "n - 3°";
+            thirdTryLabel.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // secondTryLabel
+            // 
+            secondTryLabel.Font = new Font("Bowlby One SC", 8F);
+            secondTryLabel.ForeColor = SystemColors.WindowFrame;
+            secondTryLabel.Location = new Point(19, 192);
+            secondTryLabel.Name = "secondTryLabel";
+            secondTryLabel.Size = new Size(59, 20);
+            secondTryLabel.TabIndex = 13;
+            secondTryLabel.Text = "n - 2°";
+            secondTryLabel.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // firstTryLabel
+            // 
+            firstTryLabel.Font = new Font("Bowlby One SC", 8F);
+            firstTryLabel.ForeColor = SystemColors.WindowFrame;
+            firstTryLabel.Location = new Point(19, 162);
+            firstTryLabel.Name = "firstTryLabel";
+            firstTryLabel.Size = new Size(59, 20);
+            firstTryLabel.TabIndex = 12;
+            firstTryLabel.Text = "n - 1°";
+            firstTryLabel.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // triesLabel
+            // 
+            triesLabel.Font = new Font("Bowlby One SC", 10F);
+            triesLabel.ForeColor = SystemColors.WindowFrame;
+            triesLabel.Location = new Point(15, 129);
+            triesLabel.Name = "triesLabel";
+            triesLabel.Size = new Size(414, 25);
+            triesLabel.TabIndex = 11;
+            triesLabel.Text = "NUMERO DI TENTATIVI:";
+            triesLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // sixthTryProgressBar
+            // 
+            sixthTryProgressBar.BackColor = Color.Black;
+            sixthTryProgressBar.ForeColor = Color.Gray;
+            sixthTryProgressBar.Location = new Point(81, 312);
+            sixthTryProgressBar.Margin = new Padding(0, 5, 0, 5);
+            sixthTryProgressBar.Maximum = 1;
+            sixthTryProgressBar.Name = "sixthTryProgressBar";
+            sixthTryProgressBar.Size = new Size(348, 20);
+            sixthTryProgressBar.Style = ProgressBarStyle.Continuous;
+            sixthTryProgressBar.TabIndex = 10;
+            // 
+            // fifthTryProgressBar
+            // 
+            fifthTryProgressBar.BackColor = Color.Black;
+            fifthTryProgressBar.ForeColor = Color.Gray;
+            fifthTryProgressBar.Location = new Point(81, 282);
+            fifthTryProgressBar.Margin = new Padding(0, 5, 0, 5);
+            fifthTryProgressBar.Maximum = 1;
+            fifthTryProgressBar.Name = "fifthTryProgressBar";
+            fifthTryProgressBar.Size = new Size(348, 20);
+            fifthTryProgressBar.Style = ProgressBarStyle.Continuous;
+            fifthTryProgressBar.TabIndex = 9;
+            // 
+            // fourthTryProgressBar
+            // 
+            fourthTryProgressBar.BackColor = Color.Black;
+            fourthTryProgressBar.ForeColor = Color.Gray;
+            fourthTryProgressBar.Location = new Point(81, 252);
+            fourthTryProgressBar.Margin = new Padding(0, 5, 0, 5);
+            fourthTryProgressBar.Maximum = 1;
+            fourthTryProgressBar.Name = "fourthTryProgressBar";
+            fourthTryProgressBar.Size = new Size(348, 20);
+            fourthTryProgressBar.Style = ProgressBarStyle.Continuous;
+            fourthTryProgressBar.TabIndex = 8;
+            // 
+            // thirdTryProgressBar
+            // 
+            thirdTryProgressBar.BackColor = Color.Black;
+            thirdTryProgressBar.ForeColor = Color.Gray;
+            thirdTryProgressBar.Location = new Point(81, 222);
+            thirdTryProgressBar.Margin = new Padding(0, 5, 0, 5);
+            thirdTryProgressBar.Maximum = 1;
+            thirdTryProgressBar.Name = "thirdTryProgressBar";
+            thirdTryProgressBar.Size = new Size(348, 20);
+            thirdTryProgressBar.Style = ProgressBarStyle.Continuous;
+            thirdTryProgressBar.TabIndex = 7;
+            // 
+            // secondTryProgressBar
+            // 
+            secondTryProgressBar.BackColor = Color.Black;
+            secondTryProgressBar.ForeColor = Color.Gray;
+            secondTryProgressBar.Location = new Point(81, 192);
+            secondTryProgressBar.Margin = new Padding(0, 5, 0, 5);
+            secondTryProgressBar.Maximum = 1;
+            secondTryProgressBar.Name = "secondTryProgressBar";
+            secondTryProgressBar.Size = new Size(348, 20);
+            secondTryProgressBar.Style = ProgressBarStyle.Continuous;
+            secondTryProgressBar.TabIndex = 6;
+            // 
+            // firstTryProgressBar
+            // 
+            firstTryProgressBar.BackColor = Color.Black;
+            firstTryProgressBar.ForeColor = Color.Gray;
+            firstTryProgressBar.Location = new Point(81, 162);
+            firstTryProgressBar.Margin = new Padding(0, 5, 0, 5);
+            firstTryProgressBar.Maximum = 1;
+            firstTryProgressBar.Name = "firstTryProgressBar";
+            firstTryProgressBar.Size = new Size(348, 20);
+            firstTryProgressBar.Style = ProgressBarStyle.Continuous;
+            firstTryProgressBar.TabIndex = 5;
+            // 
+            // defeatsLabel
+            // 
+            defeatsLabel.Font = new Font("Bowlby One SC", 12F);
+            defeatsLabel.ForeColor = Color.White;
+            defeatsLabel.Location = new Point(222, 83);
+            defeatsLabel.Name = "defeatsLabel";
+            defeatsLabel.Size = new Size(207, 31);
+            defeatsLabel.TabIndex = 4;
+            defeatsLabel.Text = "SCONFITTE: ";
+            defeatsLabel.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // victoriesLabel
+            // 
+            victoriesLabel.Font = new Font("Bowlby One SC", 12F);
+            victoriesLabel.ForeColor = Color.White;
+            victoriesLabel.Location = new Point(15, 83);
+            victoriesLabel.Name = "victoriesLabel";
+            victoriesLabel.Size = new Size(203, 25);
+            victoriesLabel.TabIndex = 3;
+            victoriesLabel.Text = "VITTORIE: ";
+            victoriesLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // playAgainButton
             // 
@@ -383,10 +607,10 @@
             // resultLabel
             // 
             resultLabel.Font = new Font("Bowlby One SC", 24F);
-            resultLabel.Location = new Point(10, 28);
+            resultLabel.Location = new Point(4, 20);
             resultLabel.Margin = new Padding(10, 0, 10, 0);
             resultLabel.Name = "resultLabel";
-            resultLabel.Size = new Size(423, 60);
+            resultLabel.Size = new Size(445, 60);
             resultLabel.TabIndex = 0;
             resultLabel.Text = "RISULTATO!";
             resultLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -436,6 +660,7 @@
             deleteButton.TabIndex = 10;
             deleteButton.Text = "CANCELLA";
             deleteButton.TextAlign = ContentAlignment.MiddleCenter;
+            deleteButton.Click += deleteButton_Click;
             deleteButton.MouseEnter += deleteButton_MouseEnter;
             deleteButton.MouseLeave += deleteButton_MouseLeave;
             // 
@@ -1162,7 +1387,7 @@
             yellowBox.Name = "yellowBox";
             yellowBox.Size = new Size(87, 87);
             yellowBox.TabIndex = 6;
-            yellowBox.Text = "A";
+            yellowBox.Text = "L";
             yellowBox.TextAlign = HorizontalAlignment.Center;
             // 
             // yellowBoxLabel
@@ -1215,7 +1440,7 @@
             greenBox.Name = "greenBox";
             greenBox.Size = new Size(87, 87);
             greenBox.TabIndex = 4;
-            greenBox.Text = "A";
+            greenBox.Text = "T";
             greenBox.TextAlign = HorizontalAlignment.Center;
             // 
             // blackBox
@@ -1461,6 +1686,7 @@
             passwordLoginTextBox.Margin = new Padding(100, 20, 100, 20);
             passwordLoginTextBox.MaxLength = 20;
             passwordLoginTextBox.Name = "passwordLoginTextBox";
+            passwordLoginTextBox.PasswordChar = '*';
             passwordLoginTextBox.Size = new Size(380, 48);
             passwordLoginTextBox.TabIndex = 10;
             // 
@@ -1495,6 +1721,271 @@
             loginLabel.Text = "LOGIN";
             loginLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // statsPanel
+            // 
+            statsPanel.Controls.Add(panel1);
+            statsPanel.Controls.Add(statsTitle);
+            statsPanel.Dock = DockStyle.Fill;
+            statsPanel.Location = new Point(0, 0);
+            statsPanel.Name = "statsPanel";
+            statsPanel.Size = new Size(882, 853);
+            statsPanel.TabIndex = 6;
+            // 
+            // statsTitle
+            // 
+            statsTitle.Anchor = AnchorStyles.Top;
+            statsTitle.Font = new Font("Bowlby One SC", 30F);
+            statsTitle.ForeColor = SystemColors.ButtonHighlight;
+            statsTitle.ImageAlign = ContentAlignment.TopCenter;
+            statsTitle.Location = new Point(159, 148);
+            statsTitle.Margin = new Padding(150, 0, 150, 0);
+            statsTitle.Name = "statsTitle";
+            statsTitle.Size = new Size(564, 113);
+            statsTitle.TabIndex = 8;
+            statsTitle.Text = "Statistiche Totali";
+            statsTitle.TextAlign = ContentAlignment.MiddleCenter;
+            statsTitle.UseMnemonic = false;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(21, 21, 21);
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(label4);
+            panel1.Controls.Add(label5);
+            panel1.Controls.Add(label6);
+            panel1.Controls.Add(label7);
+            panel1.Controls.Add(progressBar1);
+            panel1.Controls.Add(progressBar2);
+            panel1.Controls.Add(progressBar3);
+            panel1.Controls.Add(progressBar4);
+            panel1.Controls.Add(progressBar5);
+            panel1.Controls.Add(progressBar6);
+            panel1.Controls.Add(label8);
+            panel1.Controls.Add(label9);
+            panel1.Controls.Add(button1);
+            panel1.Controls.Add(button2);
+            panel1.Controls.Add(label10);
+            panel1.Location = new Point(159, 293);
+            panel1.Margin = new Padding(150, 40, 150, 150);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(573, 410);
+            panel1.TabIndex = 15;
+            panel1.Visible = false;
+            // 
+            // label1
+            // 
+            label1.Font = new Font("Bowlby One SC", 8F);
+            label1.ForeColor = SystemColors.WindowFrame;
+            label1.Location = new Point(19, 312);
+            label1.Name = "label1";
+            label1.Size = new Size(59, 20);
+            label1.TabIndex = 17;
+            label1.Text = "n - 6°";
+            label1.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            label2.Font = new Font("Bowlby One SC", 8F);
+            label2.ForeColor = SystemColors.WindowFrame;
+            label2.Location = new Point(19, 282);
+            label2.Name = "label2";
+            label2.Size = new Size(59, 20);
+            label2.TabIndex = 16;
+            label2.Text = "n - 5°";
+            label2.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label3
+            // 
+            label3.Font = new Font("Bowlby One SC", 8F);
+            label3.ForeColor = SystemColors.WindowFrame;
+            label3.Location = new Point(19, 252);
+            label3.Name = "label3";
+            label3.Size = new Size(59, 20);
+            label3.TabIndex = 16;
+            label3.Text = "n - 4°";
+            label3.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            label4.Font = new Font("Bowlby One SC", 8F);
+            label4.ForeColor = SystemColors.WindowFrame;
+            label4.Location = new Point(19, 222);
+            label4.Name = "label4";
+            label4.Size = new Size(59, 20);
+            label4.TabIndex = 15;
+            label4.Text = "n - 3°";
+            label4.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label5
+            // 
+            label5.Font = new Font("Bowlby One SC", 8F);
+            label5.ForeColor = SystemColors.WindowFrame;
+            label5.Location = new Point(19, 192);
+            label5.Name = "label5";
+            label5.Size = new Size(59, 20);
+            label5.TabIndex = 13;
+            label5.Text = "n - 2°";
+            label5.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label6
+            // 
+            label6.Font = new Font("Bowlby One SC", 8F);
+            label6.ForeColor = SystemColors.WindowFrame;
+            label6.Location = new Point(19, 162);
+            label6.Name = "label6";
+            label6.Size = new Size(59, 20);
+            label6.TabIndex = 12;
+            label6.Text = "n - 1°";
+            label6.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label7
+            // 
+            label7.Font = new Font("Bowlby One SC", 10F);
+            label7.ForeColor = SystemColors.WindowFrame;
+            label7.Location = new Point(15, 120);
+            label7.Name = "label7";
+            label7.Size = new Size(414, 25);
+            label7.TabIndex = 11;
+            label7.Text = "NUMERO DI TENTATIVI:";
+            label7.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // progressBar1
+            // 
+            progressBar1.BackColor = Color.Black;
+            progressBar1.ForeColor = Color.Gray;
+            progressBar1.Location = new Point(114, 308);
+            progressBar1.Margin = new Padding(0, 5, 0, 5);
+            progressBar1.Maximum = 1;
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(449, 20);
+            progressBar1.Style = ProgressBarStyle.Continuous;
+            progressBar1.TabIndex = 10;
+            // 
+            // progressBar2
+            // 
+            progressBar2.BackColor = Color.Black;
+            progressBar2.ForeColor = Color.Gray;
+            progressBar2.Location = new Point(114, 278);
+            progressBar2.Margin = new Padding(0, 5, 0, 5);
+            progressBar2.Maximum = 1;
+            progressBar2.Name = "progressBar2";
+            progressBar2.Size = new Size(449, 20);
+            progressBar2.Style = ProgressBarStyle.Continuous;
+            progressBar2.TabIndex = 9;
+            // 
+            // progressBar3
+            // 
+            progressBar3.BackColor = Color.Black;
+            progressBar3.ForeColor = Color.Gray;
+            progressBar3.Location = new Point(114, 248);
+            progressBar3.Margin = new Padding(0, 5, 0, 5);
+            progressBar3.Maximum = 1;
+            progressBar3.Name = "progressBar3";
+            progressBar3.Size = new Size(449, 20);
+            progressBar3.Style = ProgressBarStyle.Continuous;
+            progressBar3.TabIndex = 8;
+            // 
+            // progressBar4
+            // 
+            progressBar4.BackColor = Color.Black;
+            progressBar4.ForeColor = Color.Gray;
+            progressBar4.Location = new Point(114, 218);
+            progressBar4.Margin = new Padding(0, 5, 0, 5);
+            progressBar4.Maximum = 1;
+            progressBar4.Name = "progressBar4";
+            progressBar4.Size = new Size(449, 20);
+            progressBar4.Style = ProgressBarStyle.Continuous;
+            progressBar4.TabIndex = 7;
+            // 
+            // progressBar5
+            // 
+            progressBar5.BackColor = Color.Black;
+            progressBar5.ForeColor = Color.Gray;
+            progressBar5.Location = new Point(114, 188);
+            progressBar5.Margin = new Padding(0, 5, 0, 5);
+            progressBar5.Maximum = 1;
+            progressBar5.Name = "progressBar5";
+            progressBar5.Size = new Size(449, 20);
+            progressBar5.Style = ProgressBarStyle.Continuous;
+            progressBar5.TabIndex = 6;
+            // 
+            // progressBar6
+            // 
+            progressBar6.BackColor = Color.Black;
+            progressBar6.ForeColor = Color.Gray;
+            progressBar6.Location = new Point(114, 158);
+            progressBar6.Margin = new Padding(0, 5, 0, 5);
+            progressBar6.Maximum = 1;
+            progressBar6.Name = "progressBar6";
+            progressBar6.Size = new Size(449, 20);
+            progressBar6.Style = ProgressBarStyle.Continuous;
+            progressBar6.TabIndex = 5;
+            // 
+            // label8
+            // 
+            label8.Font = new Font("Bowlby One SC", 12F);
+            label8.ForeColor = Color.White;
+            label8.Location = new Point(278, 83);
+            label8.Name = "label8";
+            label8.Size = new Size(294, 31);
+            label8.TabIndex = 4;
+            label8.Text = "SCONFITTE: ";
+            label8.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label9
+            // 
+            label9.Font = new Font("Bowlby One SC", 12F);
+            label9.ForeColor = Color.White;
+            label9.Location = new Point(-1, 83);
+            label9.Name = "label9";
+            label9.Size = new Size(276, 25);
+            label9.TabIndex = 3;
+            label9.Text = "VITTORIE: ";
+            label9.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(31, 31, 31);
+            button1.Cursor = Cursors.Hand;
+            button1.Font = new Font("Bowlby One SC", 12F);
+            button1.ForeColor = Color.Lime;
+            button1.Location = new Point(224, 351);
+            button1.Margin = new Padding(15, 5, 5, 15);
+            button1.Name = "button1";
+            button1.Size = new Size(205, 35);
+            button1.TabIndex = 2;
+            button1.Text = "Gioca subito!";
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            button2.BackColor = Color.FromArgb(31, 31, 31);
+            button2.Cursor = Cursors.Hand;
+            button2.Font = new Font("Bowlby One SC", 12F);
+            button2.ForeColor = Color.FromArgb(192, 0, 192);
+            button2.Location = new Point(15, 351);
+            button2.Margin = new Padding(15, 5, 5, 15);
+            button2.Name = "button2";
+            button2.Size = new Size(205, 35);
+            button2.TabIndex = 1;
+            button2.Text = "Vai alla Home";
+            button2.UseVisualStyleBackColor = false;
+            // 
+            // label10
+            // 
+            label10.Font = new Font("Bowlby One SC", 24F);
+            label10.ForeColor = Color.White;
+            label10.Location = new Point(1, 14);
+            label10.Margin = new Padding(10, 0, 10, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(571, 60);
+            label10.TabIndex = 0;
+            label10.Text = "Dati globali";
+            label10.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Home
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1505,6 +1996,7 @@
             Controls.Add(settingsPanel);
             Controls.Add(title);
             Controls.Add(homePanel);
+            Controls.Add(statsPanel);
             Controls.Add(loginPanel);
             Controls.Add(matchPanel);
             Controls.Add(rulesPanel);
@@ -1542,6 +2034,8 @@
             registerWindow.PerformLayout();
             loginWindow.ResumeLayout(false);
             loginWindow.PerformLayout();
+            statsPanel.ResumeLayout(false);
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1638,5 +2132,41 @@
         private Label enterRegisterDataButton;
         private Label enterLoginDataButton;
         private Label errorDataLabel;
+        private Label victoriesLabel;
+        private ProgressBar firstTryProgressBar;
+        private Label defeatsLabel;
+        private ProgressBar fifthTryProgressBar;
+        private ProgressBar fourthTryProgressBar;
+        private ProgressBar thirdTryProgressBar;
+        private ProgressBar secondTryProgressBar;
+        private Label thirdTryLabel;
+        private Label secondTryLabel;
+        private Label firstTryLabel;
+        private Label triesLabel;
+        private ProgressBar sixthTryProgressBar;
+        private Label fifthTryLabel;
+        private Label fourthTryLabel;
+        private Label sixthTryLabel;
+        private Panel statsPanel;
+        private Label statsTitle;
+        private Panel panel1;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private Label label6;
+        private Label label7;
+        private ProgressBar progressBar1;
+        private ProgressBar progressBar2;
+        private ProgressBar progressBar3;
+        private ProgressBar progressBar4;
+        private ProgressBar progressBar5;
+        private ProgressBar progressBar6;
+        private Label label8;
+        private Label label9;
+        private Button button1;
+        private Button button2;
+        private Label label10;
     }
 }

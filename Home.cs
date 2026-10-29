@@ -15,12 +15,16 @@ namespace AltaWordle
         private string language = "Italiano (IT)";
         private string insertedText = "";
         public string guessWord = "";
+        private string user = "host";    // UTENTE DI DEFAULT: OSPITE
+        public int victories = 0, defeats = 0, firstTry = 0, secondTry = 0, thirdTry = 0, fourthTry = 0, fifthTry = 0, sixthTry = 0, maxValue = 0;
         List<UserInfo> userList;
 
         public Home()
         {
             InitializeComponent();
             langSelect.SelectedIndex = 0;
+            loadStats();
+            refreshStats();
         }
 
         private void langSelect_SelectedIndexChanged(object sender, EventArgs e) // Controllare in qualsiasi momento il cambio di lingua e inserire nelle liste le parole dei .txt corrispondenti
@@ -60,6 +64,19 @@ namespace AltaWordle
                 backButton.Text = "Vai alla Home";
                 playAgainButton.Text = "Gioca ancora";
                 rulesLabel.Text = "\"AltaWordle\" è un gioco che consiste nell'indovinare una parola da 5 lettere dopo un certo numero di tentativi:\n> MODALITÀ FACILE (6 tentativi)\n> MODALITÀ MEDIA (5 tentativi)\n> MODALITÀ DIFFICILE (4 tentativi)\n\nÈ possibile giocare sia come ospiti sia loggandosi con il proprio profilo\n\nLe statistiche presenti nella HomePage rappresentano la media tra tutte le partite giocate, mentre quelle presenti nell'area personale riguardano quelle del giocatore loggato\n\nLINGUE: Italiano, Inglese, Francese";
+                blackBoxLabel.Text = "LETTERA NON PRESENTE NELLA PAROLA DA INDOVINARE"; yellowBoxLabel.Text = "LETTERA PRESENTE NELLA PAROLA, MA IN POSIZIONE SCORRETTA"; greenBoxLabel.Text = "LETTERA POSIZIONATA CORRETTAMENTE NELLA PAROLA DA INDOVINARE";
+                rulesTitle.Text = "Regolamento"; colorsTitle.Text = "Colori";
+                registerTitle.Text = "REGISTRAZIONE"; passwordLabel.Text = "Crea password"; repeatPasswordLabel.Text = "Ripeti password";
+                enterRegisterDataButton.Text = "CONFERMA DATI INSERITI"; enterLoginDataButton.Text = "CONFERMA DATI INSERITI";
+                altHostPlayButton.Text = "Gioca subito!";
+                if (registerWindow.Visible == false)
+                {
+                    registerButton.Text = "Registrati";
+                }
+                else
+                {
+                    registerButton.Text = "Login";
+                }
             }
             else if (ris == 2)
             {
@@ -74,6 +91,19 @@ namespace AltaWordle
                 backButton.Text = "Home Page";
                 playAgainButton.Text = "Play again";
                 rulesLabel.Text = "\"AltaWordle\" is a game that consists of guessing a 5-letter word after a certain number of attempts:\n> EASY MODE (6 attempts)\n> MEDIUM MODE (5 attempts)\n> HARD MODE (4 attempts)\n\nYou can play either as a guest or by logging in with your profile\n\nThe statistics on the HomePage represent the average of all games played, while those in each player's personal area concern that player's own games\n\nLANGUAGES: Italian, English, French";
+                blackBoxLabel.Text = "THE LETTER IS NOT PRESENT IN THE WORD TO GUESS"; yellowBoxLabel.Text = "THE LETTER IS PRESENT IN THE WORD, BUT IN THE WRONG POSITION"; greenBoxLabel.Text = "THE LETTER IS CORRECTLY POSITIONED IN THE WORD TO GUESS";
+                rulesTitle.Text = "Rules"; colorsTitle.Text = "Colors";
+                registerTitle.Text = "REGISTRATION"; passwordLabel.Text = "Create password"; repeatPasswordLabel.Text = "Repeat password";
+                enterRegisterDataButton.Text = "CONFIRM ENTERED DATA"; enterLoginDataButton.Text = "CONFIRM ENTERED DATA";
+                altHostPlayButton.Text = "Play now!";
+                if (registerWindow.Visible == false)
+                {
+                    registerButton.Text = "Register";
+                }
+                else
+                {
+                    registerButton.Text = "Login";
+                }
             }
             else if (ris == 3)
             {
@@ -88,8 +118,50 @@ namespace AltaWordle
                 backButton.Text = "Page d'Accueil";
                 playAgainButton.Text = "Rejouer";
                 rulesLabel.Text = "\"AltaWordle\" est un jeu qui consiste à deviner un mot de 5 lettres après un certain nombre de tentatives:\n> MODE FACILE (6 tentatives)\n> MODE MOYEN (5 tentatives)\n> MODE DIFFICILE (4 tentatives)\n\nVous pouvez jouer tout de suite ou sélectionner votre profil\n\nLes statistiques présentes sur la page d'accueil représentent la moyenne de toutes les parties jouées, tandis que celles dans l'espace personnel concernent les parties du joueur\n\nLANGUES: Italien, Anglais, Français";
+                blackBoxLabel.Text = "LA LETTRE N'EST PAS PRÉSENTE DANS LE MOT à DEVENIR"; yellowBoxLabel.Text = "LA LETTRE EST PRÉSENTE DANS LE MOT, MAIS DANS LA MAUVAISE POSITION"; greenBoxLabel.Text = "LA LETTRE EST CORRECTEMENT POSITIONNÉE DANS LE MOT";
+                rulesTitle.Text = "Règlement"; colorsTitle.Text = "Couleurs";
+                registerTitle.Text = "INSCRIPTION"; passwordLabel.Text = "Créer un password"; repeatPasswordLabel.Text = "Répéter le password";
+                enterRegisterDataButton.Text = "CONFIRMER LES DONNÉES INSÉRÉES"; enterLoginDataButton.Text = "CONFIRMER LES DONNÉES INSÉRÉES";
+                altHostPlayButton.Text = "Jouer tout de suite!";
+                if (registerWindow.Visible == false)
+                {
+                    registerButton.Text = "Inscription";
+                }
+                else
+                {
+                    registerButton.Text = "Login";
+                }
             }
         }
+
+        private void refreshStats()                                     // Aggiornamento statistiche ospite e utente
+        {
+
+            if (language == "Italiano (IT)")
+            {
+                victoriesLabel.Text = "Vittorie: " + victories.ToString();
+                defeatsLabel.Text = "Sconfitte: " + defeats.ToString();
+            }
+            else if (language == "Inglese (EN)")
+            {
+                victoriesLabel.Text = "Victories: " + victories.ToString();
+                defeatsLabel.Text = "Defeats: " + defeats.ToString();
+            }
+            else
+            {
+                victoriesLabel.Text = "Victoires: " + victories.ToString();
+                defeatsLabel.Text = "Défaites: " + defeats.ToString();
+            }
+            maxValue = Math.Max(firstTry, Math.Max(secondTry, Math.Max(thirdTry, Math.Max(fourthTry, Math.Max(fifthTry, sixthTry)))));
+            firstTryProgressBar.Maximum = maxValue; secondTryProgressBar.Maximum = maxValue; thirdTryProgressBar.Maximum = maxValue; fourthTryProgressBar.Maximum = maxValue; fifthTryProgressBar.Maximum = maxValue; sixthTryProgressBar.Maximum = maxValue;
+            firstTryLabel.Text = firstTry.ToString() + " - 1°"; firstTryProgressBar.Value = firstTry;
+            secondTryLabel.Text = secondTry.ToString() + " - 2°"; secondTryProgressBar.Value = secondTry;
+            thirdTryLabel.Text = thirdTry.ToString() + " - 3°"; thirdTryProgressBar.Value = thirdTry;
+            fourthTryLabel.Text = fourthTry.ToString() + " - 4°"; fourthTryProgressBar.Value = fourthTry;
+            fifthTryLabel.Text = fifthTry.ToString() + " - 5°"; fifthTryProgressBar.Value = fifthTry;
+            sixthTryLabel.Text = sixthTry.ToString() + " - 6°"; sixthTryProgressBar.Value = sixthTry;
+        }
+
 
         // FUNZIONI "CLICK" PULSANTI HOME
         private void settingsButton_Click(object sender, EventArgs e)   // Apertura menu laterale e spostamento oggetti
@@ -150,14 +222,10 @@ namespace AltaWordle
 
         private void hostPlayButton_Click(object sender, EventArgs e)   // Partita come ospite
         {
-            matchPanel.BringToFront();
-            title.BringToFront();
-            settingsPanel.BringToFront();
-            settingsButton.BringToFront();
-            homeButton.Visible = true;
-
-            wordManager.LoadWords(language);
-            guessWord = wordManager.GetGuessWord();
+            user = "host";
+            loadStats();
+            refreshStats();
+            startMatch();
         }
 
         private void playerPlayButton_Click(object sender, EventArgs e) // Partita come giocatore loggato
@@ -820,7 +888,7 @@ namespace AltaWordle
             enterLoginDataButton.BackColor = Color.FromArgb(10, 10, 10);
         }
 
-        private void enterButton_Click(object sender, EventArgs e)
+        private void enterButton_Click(object sender, EventArgs e)      //LOGICA MACRO DEL GIOCO
         {
             string word = "";
             string colors = "";
@@ -857,6 +925,11 @@ namespace AltaWordle
                                 sixthWordPanel.Enabled = true;
                                 letter6_1.Focus();
                             }
+                            else
+                            {
+                                errorLabel.Text = "ERRORE: La parola deve essere lunga 5 lettere!";
+                                errorLabel.Visible = true;
+                            }
                         }
                         else if (letter4_1.Text.Length == 1 && letter4_2.Text.Length == 1 && letter4_3.Text.Length == 1 && letter4_4.Text.Length == 1 && letter4_5.Text.Length == 1)
                         {
@@ -870,6 +943,11 @@ namespace AltaWordle
                             victory(colors);    // CONDIZIONE VITTORIA
                             fifthWordPanel.Enabled = true;
                             letter5_1.Focus();
+                        }
+                        else
+                        {
+                            errorLabel.Text = "ERRORE: La parola deve essere lunga 5 lettere!";
+                            errorLabel.Visible = true;
                         }
                     }
                     else if (letter3_1.Text.Length == 1 && letter3_2.Text.Length == 1 && letter3_3.Text.Length == 1 && letter3_4.Text.Length == 1 && letter3_5.Text.Length == 1)
@@ -885,6 +963,11 @@ namespace AltaWordle
                         fourthWordPanel.Enabled = true;
                         letter4_1.Focus();
                     }
+                    else
+                    {
+                        errorLabel.Text = "ERRORE: La parola deve essere lunga 5 lettere!";
+                        errorLabel.Visible = true;
+                    }
                 }
                 else if (letter2_1.Text.Length == 1 && letter2_2.Text.Length == 1 && letter2_3.Text.Length == 1 && letter2_4.Text.Length == 1 && letter2_5.Text.Length == 1)
                 {
@@ -898,6 +981,11 @@ namespace AltaWordle
                     victory(colors);    // CONDIZIONE VITTORIA
                     thirdWordPanel.Enabled = true;
                     letter3_1.Focus();
+                }
+                else
+                {
+                    errorLabel.Text = "ERRORE: La parola deve essere lunga 5 lettere!";
+                    errorLabel.Visible = true;
                 }
             }
             else if (letter1_1.Text.Length == 1 && letter1_2.Text.Length == 1 && letter1_3.Text.Length == 1 && letter1_4.Text.Length == 1 && letter1_5.Text.Length == 1)
@@ -918,6 +1006,7 @@ namespace AltaWordle
                 errorLabel.Text = "ERRORE: La parola deve essere lunga 5 lettere!";
                 errorLabel.Visible = true;
             }
+            refreshStats();
             // DEBUG LABEL PAROLA E COLORE
             //debugWordLabel.Visible = true;
             //debugWordLabel.Text = word;
@@ -925,7 +1014,66 @@ namespace AltaWordle
             //debugColorLabel.Text = colors;
         }
 
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            if (sixthWordPanel.Enabled == false)
+            {
+                if (fifthWordPanel.Enabled == false)
+                {
+                    if (fourthWordPanel.Enabled == false)
+                    {
+                        if (thirdWordPanel.Enabled == false)
+                        {
+                            if (secondWordPanel.Enabled == false)
+                            {
+                                letter1_1.Text = ""; letter1_2.Text = ""; letter1_3.Text = ""; letter1_4.Text = ""; letter1_5.Text = "";
+                                letter1_1.Focus();
+                            }
+                            else
+                            {
+                                letter2_1.Text = ""; letter2_2.Text = ""; letter2_3.Text = ""; letter2_4.Text = ""; letter2_5.Text = "";
+                                letter2_1.Focus();
+                            }
+                        }
+                        else
+                        {
+                            letter3_1.Text = ""; letter3_2.Text = ""; letter3_3.Text = ""; letter3_4.Text = ""; letter3_5.Text = "";
+                            letter3_1.Focus();
+                        }
+                    }
+                    else
+                    {
+                        letter4_1.Text = ""; letter4_2.Text = ""; letter4_3.Text = ""; letter4_4.Text = ""; letter4_5.Text = "";
+                        letter4_1.Focus();
+                    }
+                }
+                else
+                {
+                    letter5_1.Text = ""; letter5_2.Text = ""; letter5_3.Text = ""; letter5_4.Text = ""; letter5_5.Text = "";
+                    letter5_1.Focus();
+                }
+
+            }
+            else
+            {
+                letter6_1.Text = ""; letter6_2.Text = ""; letter6_3.Text = ""; letter6_4.Text = ""; letter6_5.Text = "";
+                letter6_1.Focus();
+            }
+        }
+
         // FUNZIONI DI GIOCO
+        private void startMatch()
+        {
+            matchPanel.BringToFront();
+            title.BringToFront();
+            settingsPanel.BringToFront();
+            settingsButton.BringToFront();
+            homeButton.Visible = true;
+
+            wordManager.LoadWords(language);
+            guessWord = wordManager.GetGuessWord();
+        }
+
         private bool validation(string word)
         {
             errorLabel.Visible = false;
@@ -937,7 +1085,12 @@ namespace AltaWordle
                 }
             }
             errorLabel.Visible = true;
-            errorLabel.Text = "ERRORE: La parola '" + word + "' non è valida!";
+            if (language == "Italiano (IT)")
+                errorLabel.Text = "ERRORE: La parola '" + word + "' non è valida!";
+            else if (language == "Inglese (EN)")
+                errorLabel.Text = "ERROR: The word '" + word + "' is not valid!";
+            else if (language == "Francese (FR)")
+                errorLabel.Text = "ERREUR: Le mot '" + word + "' n'est pas valide!";
             return false;
         }
 
@@ -997,6 +1150,44 @@ namespace AltaWordle
                 resultLabel.ForeColor = Color.FromArgb(0, 255, 0);
                 enterButton.Enabled = false;
                 deleteButton.Enabled = false;
+                victories += 1;
+                if (sixthWordPanel.Enabled == false)
+                {
+                    if (fifthWordPanel.Enabled == false)
+                    {
+                        if (fourthWordPanel.Enabled == false)
+                        {
+                            if (thirdWordPanel.Enabled == false)
+                            {
+                                if (secondWordPanel.Enabled == false)
+                                {
+                                    firstTry += 1;
+                                }
+                                else
+                                {
+                                    secondTry += 1;
+                                }
+                            }
+                            else
+                            {
+                                thirdTry += 1;
+                            }
+                        }
+                        else
+                        {
+                            fourthTry += 1;
+                        }
+                    }
+                    else
+                    {
+                        fifthTry += 1;
+                    }
+                }
+                else
+                {
+                    sixthTry += 1;
+                }
+                saveStats();
             }
             else if (letter6_1.Text.Length == 1 && letter6_2.Text.Length == 1 && letter6_3.Text.Length == 1 && letter6_4.Text.Length == 1 && letter6_5.Text.Length == 1)
             {
@@ -1018,6 +1209,8 @@ namespace AltaWordle
                 resultLabel.ForeColor = Color.FromArgb(192, 0, 192);
                 enterButton.Enabled = false;
                 deleteButton.Enabled = false;
+                defeats += 1;
+                saveStats();
             }
         }
 
@@ -1623,30 +1816,98 @@ namespace AltaWordle
 
         private void registerButton_Click(object sender, EventArgs e)
         {
-            if (registerButton.Text == "REGISTRATI" || registerButton.Text == "REGISTER" || registerButton.Text == "INSCRIVEZ-VOUS")
+            if (registerButton.Text == "Registrati" || registerButton.Text == "Register" || registerButton.Text == "Iscrivez-vous")
             {
                 registerWindow.Visible = true;
-                registerButton.Text = "LOGIN";
+                registerButton.Text = "Login";
             }
             else
             {
                 registerWindow.Visible = false;
                 if (language == "Italiano (IT)")
                 {
-                    registerButton.Text = "REGISTRATI";
+                    registerButton.Text = "Registrati";
                 }
                 else if (language == "Inglese (EN)")
                 {
-                    registerButton.Text = "REGISTER";
+                    registerButton.Text = "Register";
                 }
                 else
                 {
-                    registerButton.Text = "INSCRIVEZ-VOUS";
+                    registerButton.Text = "Iscrivez-vous";
                 }
             }
         }
 
         //FUNZIONI LOGIN E REGISTRAZIONE
+        private void loadStats()
+        {
+            if (user == "host")
+            {
+                string percorso = "host_stats.csv";
+                if (File.Exists(percorso))
+                {
+                    string[] lines = File.ReadAllLines(percorso);
+                    if (lines.Length >= 9)
+                    {
+                        victories = Convert.ToInt32(lines[1]);
+                        defeats = Convert.ToInt32(lines[2]);
+                        firstTry = Convert.ToInt32(lines[3]);
+                        secondTry = Convert.ToInt32(lines[4]);
+                        thirdTry = Convert.ToInt32(lines[5]);
+                        fourthTry = Convert.ToInt32(lines[6]);
+                        fifthTry = Convert.ToInt32(lines[7]);
+                        sixthTry = Convert.ToInt32(lines[8]);
+                        return;
+                    }
+                }
+                // file assente o incompleto: si riparte da zero
+                victories = defeats = firstTry = secondTry = thirdTry = fourthTry = fifthTry = sixthTry = 0;
+            }
+            else
+            {
+                readJson();
+                UserInfo currentUser = userList.FirstOrDefault(u => u.username == user);
+                if (currentUser == null)
+                    throw new Exception("Utente non trovato nella lista degli utenti loggati!");
+                victories = currentUser.victories;
+                defeats = currentUser.defeats;
+                firstTry = currentUser.firstTry;
+                secondTry = currentUser.secondTry;
+                thirdTry = currentUser.thirdTry;
+                fourthTry = currentUser.fourthTry;
+                fifthTry = currentUser.fifthTry;
+                sixthTry = currentUser.sixthTry;
+            }
+        }
+
+        private void saveStats()
+        {
+            if (user == "host")
+            {
+                string[] lines = {
+                    "host_stats",   // riga 0: intestazione, ignorata in lettura
+                    victories.ToString(), defeats.ToString(), firstTry.ToString(), secondTry.ToString(), thirdTry.ToString(), fourthTry.ToString(), fifthTry.ToString(), sixthTry.ToString()
+                };
+                File.WriteAllLines("host_stats.csv", lines);
+            }
+            else
+            {
+                readJson();
+                UserInfo currentUser = userList.FirstOrDefault(u => u.username == user);
+                if (currentUser == null) return;
+                currentUser.victories = victories;
+                currentUser.defeats = defeats;
+                currentUser.firstTry = firstTry;
+                currentUser.secondTry = secondTry;
+                currentUser.thirdTry = thirdTry;
+                currentUser.fourthTry = fourthTry;
+                currentUser.fifthTry = fifthTry;
+                currentUser.sixthTry = sixthTry;
+                saveJson();
+            }
+        }
+
         private void readJson()
         {
             string percorso = "users.json";
@@ -1666,6 +1927,13 @@ namespace AltaWordle
             {
                 userList = new List<UserInfo>();
             }
+        }
+
+        private void saveJson()
+        {
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string newJson = JsonSerializer.Serialize(userList, options);
+            File.WriteAllText("users.json", newJson);
         }
 
         private void enterRegisterDataButton_Click(object sender, EventArgs e)
@@ -1700,6 +1968,10 @@ namespace AltaWordle
                             var options = new JsonSerializerOptions { WriteIndented = true };   // formattazione .json in maniera leggibile
                             string newJson = JsonSerializer.Serialize(userList, options);       // serializzazione lista aggiornata con utente aggiunto
                             File.WriteAllText("users.json", newJson);
+                            user = insertedUsername;
+                            loadStats();
+                            refreshStats();
+                            startMatch();
                         }
                         else
                         {
@@ -1729,28 +2001,43 @@ namespace AltaWordle
         private void enterLoginDataButton_Click(object sender, EventArgs e)
         {
             readJson();
-            if (usernameLoginTextBox.Text.Length > 0) {
+            if (usernameLoginTextBox.Text.Length > 0)
+            {
                 string insertedUsername = usernameLoginTextBox.Text;
                 string insertedPassword = passwordLoginTextBox.Text;
                 UserInfo userFound = userList.FirstOrDefault(u => u.username == insertedUsername);
-                if (userFound != null) {
-                    if (insertedPassword.Length > 0) {
-                        if (userFound.password == insertedPassword) {
+                if (userFound != null)
+                {
+                    if (insertedPassword.Length > 0)
+                    {
+                        if (userFound.password == insertedPassword)
+                        {
                             errorDataLabel.Visible = false;
-                            // LOGIN RIUSCITO
-                        } else {
+                            user = insertedUsername;
+                            loadStats();
+                            refreshStats();
+                            startMatch();
+                        }
+                        else
+                        {
                             errorDataLabel.Visible = true;
                             errorDataLabel.Text = "ERRORE: Password errata";
                         }
-                    } else {
+                    }
+                    else
+                    {
                         errorDataLabel.Visible = true;
                         errorDataLabel.Text = "ERRORE: Password non inserita";
                     }
-                } else {
+                }
+                else
+                {
                     errorDataLabel.Visible = true;
                     errorDataLabel.Text = "ERRORE: Utente non registrato";
                 }
-            } else {
+            }
+            else
+            {
                 errorDataLabel.Visible = true;
                 errorDataLabel.Text = "ERRORE: Nome utente non inserito";
             }
